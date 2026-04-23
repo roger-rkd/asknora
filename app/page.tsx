@@ -2,359 +2,662 @@
 
 import { useState } from 'react'
 import ChatBubble from './components/ChatBubble'
+import NoraAvatar from './components/NoraAvatar'
 
-// ── Decorative SVG elements ────────────────────────────────────────────────────
+// ── Feature icons ───────────────────────────────────────────────────────────
 
-function EcgLine({ className = '' }: { className?: string }) {
+function IconStethoscope() {
   return (
-    <svg
-      viewBox="0 0 1200 56"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,28 L180,28 L196,28 L204,20 L210,36 L216,4 L222,52 L227,28 L260,28 L268,22 L274,28
-           L480,28 L496,28 L504,20 L510,36 L516,4 L522,52 L527,28 L560,28 L568,22 L574,28
-           L780,28 L796,28 L804,20 L810,36 L816,4 L822,52 L827,28 L860,28 L868,22 L874,28
-           L1080,28 L1096,28 L1104,20 L1110,36 L1116,4 L1122,52 L1127,28 L1160,28 L1168,22 L1174,28 L1200,28"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 6.5v5a7.5 7.5 0 0015 0v-5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 6.5a2 2 0 014 0m7 0a2 2 0 014 0" />
+      <circle cx="12" cy="19" r="2" />
+      <line x1="12" y1="15.5" x2="12" y2="17" strokeLinecap="round" />
     </svg>
   )
 }
 
-function MedicalCrossLarge({ className = '' }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 100 100" fill="currentColor">
-      <rect x="36" y="8" width="28" height="84" rx="10" />
-      <rect x="8" y="36" width="84" height="28" rx="10" />
-    </svg>
-  )
-}
-
-// ── Icons ─────────────────────────────────────────────────────────────────────
-
-// Clipboard with ECG pulse line — symptom checker
-function IconSymptom() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 15h1.2l.8-2 1.8 4 1-3 .7 1H17" strokeWidth={1.5} />
-    </svg>
-  )
-}
-
-// Pill capsule — medication
 function IconPill() {
   return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-      <rect x="3" y="9.5" width="18" height="5" rx="2.5" />
-      <line x1="12" y1="9.5" x2="12" y2="14.5" strokeWidth={1.8} />
-      <line x1="10.5" y1="7" x2="13.5" y2="7" strokeLinecap="round" strokeWidth={1.5} />
-      <line x1="10.5" y1="17" x2="13.5" y2="17" strokeLinecap="round" strokeWidth={1.5} />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 4.5l-5 5a4.243 4.243 0 006 6l5-5a4.243 4.243 0 00-6-6z" />
+      <line x1="9.5" y1="14.5" x2="14.5" y2="9.5" strokeLinecap="round" />
     </svg>
   )
 }
 
-// Map pin with medical cross inside — GP finder
-function IconGpPin() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-      <line x1="12" y1="7" x2="12" y2="13" strokeLinecap="round" strokeWidth={1.8} />
-      <line x1="9" y1="10" x2="15" y2="10" strokeLinecap="round" strokeWidth={1.8} />
-    </svg>
-  )
-}
-
-// Calendar with medical cross — appointments
 function IconCalendar() {
   return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      <line x1="12" y1="12.5" x2="12" y2="17.5" strokeLinecap="round" strokeWidth={1.8} />
-      <line x1="9.5" y1="15" x2="14.5" y2="15" strokeLinecap="round" strokeWidth={1.8} />
     </svg>
   )
 }
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+function IconMapPin() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  )
+}
 
-const CAPABILITIES = [
+// ── Speciality icons ────────────────────────────────────────────────────────
+
+function IconDoc() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+  )
+}
+
+function IconCheckDoc() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+    </svg>
+  )
+}
+
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+  )
+}
+
+function IconChart() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+    </svg>
+  )
+}
+
+function IconTeam() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  )
+}
+
+function IconBulb() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    </svg>
+  )
+}
+
+// ── Data ────────────────────────────────────────────────────────────────────
+
+const FEATURES = [
   {
     id: 'symptom',
     title: 'Symptom Checker',
-    description:
-      'Describe what you\'re feeling and Nora will help you understand your symptoms, suggest what might be causing them, and advise on the right next step — whether that\'s home care, a GP visit, or calling 111.',
-    icon: <IconSymptom />,
-    accent: '#005EB8',
-    bg: '#EBF4FF',
-    examples: ['"I have a headache"', '"I feel dizzy"', '"My throat is sore"'],
+    desc: 'Describe your symptoms and Nora searches the NHS knowledge base to give you grounded, cited guidance on what might be happening and what to do next.',
+    tags: ['RAG', 'Citation enforced'],
+    icon: <IconStethoscope />,
+    iconBg: '#EBF4FF',
+    iconColor: '#005EB8',
     note: null,
   },
   {
     id: 'medication',
-    title: 'Medication Advice',
-    description:
-      'Ask what you can take for a common condition, whether a medication is safe, or what home remedies might help — all grounded in NHS-trusted clinical information.',
+    title: 'Medication Info',
+    desc: 'Ask about medications, dosages, home remedies, or drug interactions. Nora retrieves verified NHS information and flags special care for vulnerable groups.',
+    tags: ['NHS-backed', 'Safe guidance'],
     icon: <IconPill />,
-    accent: '#007F3B',
-    bg: '#E6F4EC',
-    examples: ['"What can I take for a cold?"', '"Is ibuprofen safe?"', '"Home remedies for fever"'],
-    note: null,
-  },
-  {
-    id: 'gp',
-    title: 'GP Finder',
-    description:
-      'Share your postcode and Nora will give you a direct Google Maps link showing GP surgeries, pharmacies, and urgent care centres near you, alongside the NHS service search.',
-    icon: <IconGpPin />,
-    accent: '#AE2573',
-    bg: '#F9EEF5',
-    examples: ['"Find a GP near SW1A 1AA"', '"Nearest pharmacy to me"', '"Urgent care centre nearby"'],
+    iconBg: '#FFF0F3',
+    iconColor: '#DA291C',
     note: null,
   },
   {
     id: 'appointment',
-    title: 'Appointment Help',
-    description:
-      'Get clear, step-by-step instructions on how to book, reschedule, or cancel any NHS appointment — GP, specialist, nurse, or mental health. You remain in full control throughout.',
+    title: 'Appointment Booking',
+    desc: 'Get clear step-by-step instructions for booking any NHS appointment: routine GP, same-day urgent, specialist referral, nurse, or mental health support.',
+    tags: ['All appointment types'],
     icon: <IconCalendar />,
-    accent: '#00A499',
-    bg: '#E5F6F5',
-    examples: ['"How do I book a GP?"', '"I need a specialist referral"', '"Cancel my appointment"'],
-    note: 'Nora guides you through the process — she cannot book, cancel, or manage appointments on your behalf.',
+    iconBg: '#F3F0FF',
+    iconColor: '#7C3AED',
+    note: 'Nora guides you through the process. She cannot book, cancel, or manage appointments on your behalf.',
+  },
+  {
+    id: 'gp',
+    title: 'GP Finder',
+    desc: 'Share your postcode and Nora gives you a direct Google Maps link to GP surgeries nearby, plus the NHS service search for acceptance status and opening hours.',
+    tags: ['England', 'Scotland', 'Wales', 'NI'],
+    icon: <IconMapPin />,
+    iconBg: '#FFF4F0',
+    iconColor: '#EA580C',
+    note: null,
   },
 ]
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+const STEPS = [
+  {
+    title: 'You send a message',
+    desc: 'Type your health question naturally, just like texting a nurse.',
+  },
+  {
+    title: 'Nora classifies intent',
+    desc: 'An AI agent reads your message and routes it to the right specialist agent instantly.',
+  },
+  {
+    title: 'NHS knowledge is retrieved',
+    desc: 'The specialist agent searches a verified NHS document database before forming any response.',
+  },
+  {
+    title: 'Confidence is scored',
+    desc: 'Every response is scored 0 to 1. Low confidence routes to a human reviewer before reaching you.',
+  },
+]
+
+const SPECIALITIES = [
+  {
+    title: 'NHS Standard RAG',
+    desc: 'Responses generated using Retrieval-Augmented Generation from verified NHS documentation, not AI guesswork.',
+    stat: 'Retrieval-first',
+    icon: <IconDoc />,
+    iconBg: '#EBF4FF',
+    iconColor: '#005EB8',
+  },
+  {
+    title: 'Citation Enforced',
+    desc: 'Every answer must be traceable to a real NHS document or Nora returns an NHS 111 referral instead.',
+    stat: '100% sourced',
+    icon: <IconCheckDoc />,
+    iconBg: '#E6F4EC',
+    iconColor: '#007F3B',
+  },
+  {
+    title: 'Emergency Bypass',
+    desc: 'Emergency keywords skip all AI processing entirely. A 999 response is returned in under one second.',
+    stat: 'Under 1 second',
+    icon: <IconBolt />,
+    iconBg: '#FFF0F0',
+    iconColor: '#DA291C',
+  },
+  {
+    title: 'Confidence Scoring',
+    desc: 'Each response is scored 0 to 1. Scores below 0.7 are reviewed by a human before delivery.',
+    stat: 'Threshold: 0.7',
+    icon: <IconChart />,
+    iconBg: '#F3F0FF',
+    iconColor: '#7C3AED',
+  },
+  {
+    title: '7-Agent Pipeline',
+    desc: 'Seven specialist agents cover Symptoms, Medications, GP Finder, Appointments, Emergencies, Memory, and General queries.',
+    stat: '7 specialists',
+    icon: <IconTeam />,
+    iconBg: '#FFF4F0',
+    iconColor: '#EA580C',
+  },
+  {
+    title: 'Session Memory',
+    desc: 'Nora retains conversation context within each session so you never need to repeat yourself.',
+    stat: 'Context-aware',
+    icon: <IconBulb />,
+    iconBg: '#E5F6F5',
+    iconColor: '#00A499',
+  },
+]
+
+const SAFETY_ITEMS = [
+  {
+    emoji: '🚨',
+    title: 'Emergency bypass in under 1 second',
+    desc: 'Any message containing emergency symptoms immediately returns a 999 response. No AI processing. No delay.',
+  },
+  {
+    emoji: '📎',
+    title: 'Every answer is citation-enforced',
+    desc: 'If a response cannot be traced to a real NHS document, it is replaced with an NHS 111 referral. No uncited medical advice ever reaches a patient.',
+  },
+  {
+    emoji: '👤',
+    title: 'Human review on low confidence',
+    desc: 'Responses scoring below 0.7 confidence trigger a human alert. A reviewer checks the draft before any follow-up is sent.',
+  },
+]
+
+// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [chatOpen, setChatOpen] = useState(false)
 
   return (
-    <div
-      className="min-h-screen flex flex-col bg-health-pattern"
-      style={{ background: '#F0F4F5', fontFamily: 'var(--font-geist-sans), Arial, sans-serif' }}
-    >
+    <>
+      {/* ── Fixed header: nav + emergency bar ───────────────────────────── */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex flex-col">
 
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <header style={{ background: '#005EB8' }}>
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span
-              className="px-2 py-0.5 rounded text-white text-xs font-black tracking-widest select-none"
-              style={{ background: 'rgba(255,255,255,0.18)', border: '1.5px solid rgba(255,255,255,0.35)' }}
-            >
-              NHS
-            </span>
-            <span className="text-white font-bold text-base tracking-tight">AskNora</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-green-400" />
-            <span className="text-blue-100 text-xs hidden sm:inline">Assistant online</span>
-          </div>
-        </div>
-      </header>
-
-      {/* ── Hero ───────────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden text-center px-5 sm:px-8 pt-16 sm:pt-20 pb-0"
-        style={{ background: 'linear-gradient(155deg, #002060 0%, #003087 35%, #005EB8 70%, #0072CE 100%)' }}
-      >
-        {/* Decorative large medical crosses */}
-        <MedicalCrossLarge className="absolute -top-8 -right-8 w-48 h-48 text-white opacity-[0.04] pointer-events-none select-none" />
-        <MedicalCrossLarge className="absolute top-1/2 -left-14 w-40 h-40 text-white opacity-[0.04] pointer-events-none select-none" />
-        <MedicalCrossLarge className="absolute -bottom-4 right-1/4 w-28 h-28 text-white opacity-[0.03] pointer-events-none select-none" />
-
-        <div className="relative max-w-2xl mx-auto">
-          {/* Medical cross avatar */}
-          <div
-            className="w-20 h-20 rounded-2xl mx-auto mb-5 flex items-center justify-center shadow-2xl"
-            style={{ background: 'rgba(255,255,255,0.14)', border: '2px solid rgba(255,255,255,0.28)' }}
-          >
-            <svg className="w-11 h-11 text-white" viewBox="0 0 44 44" fill="currentColor">
-              <rect x="16" y="3" width="12" height="38" rx="4" />
-              <rect x="3" y="16" width="38" height="12" rx="4" />
-            </svg>
-          </div>
-
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-medium px-3 py-1.5 rounded-full mb-4 border border-white/20 backdrop-blur-sm">
-            <svg className="w-3.5 h-3.5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            Available 24 hours · 7 days a week
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-3 leading-tight">
-            Hi, I'm Nora
-          </h1>
-          <p className="text-blue-100 text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto">
-            Your NHS virtual health assistant. Ask me about symptoms, medications, finding a GP, or getting appointment guidance — any time of day.
-          </p>
-
-          <button
-            onClick={() => setChatOpen(true)}
-            className="inline-flex items-center gap-2.5 bg-white font-bold text-sm px-7 py-3.5 rounded-2xl shadow-lg transition-all hover:scale-105 active:scale-95 hover:shadow-xl mb-4"
-            style={{ color: '#003087' }}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Start chatting with Nora
-          </button>
-
-          <p className="text-blue-200/70 text-xs mb-0">
-            Not a substitute for medical advice · Emergency? Call <strong className="text-white/90">999</strong>
-          </p>
-        </div>
-
-        {/* ECG line strip — at the base of the hero */}
-        <div className="relative mt-10 -mb-px">
-          <EcgLine className="w-full h-14 text-white/20" />
-          {/* Gradient fade at the edges */}
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0072CE] to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#0072CE] to-transparent pointer-events-none" />
-        </div>
-      </section>
-
-      {/* ── Capabilities ───────────────────────────────────────────────── */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-5 sm:px-8 py-12">
-        <div className="text-center mb-8">
-          <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#768692' }}>
-            What Nora can help with
-          </p>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Four things, done well</h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {CAPABILITIES.map(cap => (
-            <div
-              key={cap.id}
-              className="bg-white rounded-2xl overflow-hidden cursor-pointer group nhs-card-hover"
-              style={{ boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}
+        {/* Nav */}
+        <header style={{ background: '#005EB8' }}>
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span
+                className="px-2.5 py-1 rounded text-white text-xs font-black tracking-widest select-none"
+                style={{ background: '#003087', border: '2px solid rgba(255,255,255,0.3)' }}
+              >
+                NHS
+              </span>
+              {/* Healthcare icon */}
+              <svg className="w-4 h-4 text-white flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="9" y="2" width="6" height="20" rx="2" />
+                <rect x="2" y="9" width="20" height="6" rx="2" />
+              </svg>
+              <span className="text-white font-bold text-sm tracking-tight hidden sm:inline">AskNora</span>
+            </div>
+            <nav className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-white/75 hover:text-white text-sm transition-colors">Services</a>
+              <a href="#how" className="text-white/75 hover:text-white text-sm transition-colors">How it works</a>
+              <a href="#safety" className="text-white/75 hover:text-white text-sm transition-colors">Safety</a>
+            </nav>
+            <button
               onClick={() => setChatOpen(true)}
+              className="text-white text-sm font-semibold px-4 py-2 rounded-md transition-colors hover:bg-white hover:text-[#005EB8]"
+              style={{ border: '1.5px solid rgba(255,255,255,0.6)' }}
             >
-              {/* Coloured top accent strip */}
-              <div className="h-1.5 w-full" style={{ background: cap.accent }} />
+              Talk to Nora
+            </button>
+          </div>
+        </header>
 
-              <div className="p-6">
-                {/* Icon + title row */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105"
-                    style={{ background: cap.bg, color: cap.accent }}
-                  >
-                    {cap.icon}
-                  </div>
-                  <h3 className="font-bold text-gray-900 text-base">{cap.title}</h3>
+        {/* Emergency bar — always visible, fixed */}
+        <div
+          className="w-full px-5 sm:px-8 h-10 flex items-center gap-2.5"
+          style={{ background: '#FFFDE7', borderBottom: '1px solid #FFE082' }}
+        >
+          <svg className="w-4 h-4 flex-shrink-0" style={{ color: '#D97706' }} fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          <p className="text-xs" style={{ color: '#78350F' }}>
+            For emergencies call{' '}
+            <strong className="font-bold" style={{ color: '#DA291C' }}>999</strong>.{' '}
+            For urgent care call{' '}
+            <strong className="font-bold" style={{ color: '#DA291C' }}>111</strong>.{' '}
+            Nora does not replace professional medical advice.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Hero (top padding clears 64px nav + 40px bar = 104px) ─────────── */}
+      <section style={{ background: '#005EB8', paddingTop: '104px' }} className="relative overflow-hidden">
+        <div
+          className="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full pointer-events-none"
+          style={{ background: 'rgba(0,114,206,0.35)' }}
+        />
+        <div
+          className="absolute bottom-0 -right-20 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: 'rgba(0,48,135,0.4)' }}
+        />
+
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-14 lg:py-20 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Left */}
+          <div>
+            <div
+              className="inline-flex items-center gap-2 mb-5 rounded-full px-3.5 py-1.5 text-xs font-medium text-white"
+              style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)' }}
+            >
+              <span className="w-2 h-2 rounded-full bg-green-400 inline-block flex-shrink-0" />
+              NHS AI Health Assistant · Available 24/7
+            </div>
+
+            <h1
+              className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-white leading-tight mb-5"
+              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+            >
+              Your health questions,{' '}
+              <span style={{ color: '#FFB81C' }}>answered instantly</span>
+            </h1>
+
+            <p className="text-blue-100 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
+              Nora is an AI-powered NHS virtual nurse. She checks symptoms, guides you to the right care,
+              helps book appointments, and finds your nearest GP, all backed by verified NHS information.
+            </p>
+
+            <div className="flex flex-wrap gap-3 mb-10">
+              <button
+                onClick={() => setChatOpen(true)}
+                className="bg-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                style={{ color: '#003087' }}
+              >
+                Chat with Nora
+              </button>
+              <a
+                href="#features"
+                className="text-white font-semibold text-sm px-6 py-3 rounded-lg transition-colors hover:bg-white/10"
+                style={{ border: '1.5px solid rgba(255,255,255,0.4)' }}
+              >
+                See what she can do
+              </a>
+            </div>
+
+            <div className="flex gap-8" style={{ borderTop: '1px solid rgba(255,255,255,0.18)', paddingTop: '1.5rem' }}>
+              {[
+                { value: '7', label: 'Specialist agents' },
+                { value: '<1s', label: 'Emergency response' },
+                { value: '100%', label: 'NHS-cited answers' },
+              ].map(s => (
+                <div key={s.label}>
+                  <p className="text-white text-2xl font-black leading-none mb-0.5">{s.value}</p>
+                  <p className="text-blue-200 text-xs">{s.label}</p>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Description */}
-                <p className="text-gray-500 text-sm leading-relaxed mb-4">{cap.description}</p>
-
-                {/* Appointment-only guidance disclaimer */}
-                {cap.note && (
-                  <div
-                    className="flex items-start gap-2 p-2.5 rounded-xl mb-4"
-                    style={{ background: '#FFF8E1', border: '1px solid #FFE082' }}
-                  >
-                    <svg className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: '#D97706' }} fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                    </svg>
-                    <p className="text-xs leading-relaxed" style={{ color: '#92400E' }}>
-                      {cap.note}
-                    </p>
-                  </div>
-                )}
-
-                {/* Example prompts */}
-                <div className="flex flex-wrap gap-1.5">
-                  {cap.examples.map(ex => (
+          {/* Right — Nora card */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative">
+              <div
+                className="absolute -top-3 right-6 z-10 flex items-center gap-1.5 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg"
+                style={{ background: '#16A34A' }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                Online now
+              </div>
+              <div
+                className="w-72 rounded-2xl p-6 text-center"
+                style={{
+                  background: 'rgba(255,255,255,0.12)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+                }}
+              >
+                <div
+                  className="w-28 h-28 rounded-full mx-auto mb-4 overflow-hidden"
+                  style={{ border: '3px solid rgba(255,255,255,0.6)', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
+                >
+                  <NoraAvatar className="w-full h-full" />
+                </div>
+                <h3
+                  className="text-white font-bold text-lg mb-0.5"
+                  style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+                >
+                  Nora
+                </h3>
+                <p className="text-blue-200 text-xs mb-5">NHS Virtual Nurse Assistant</p>
+                <div className="flex flex-wrap gap-1.5 justify-center">
+                  {['Symptoms', 'Medications', 'Appointments', 'GP Finder'].map(chip => (
                     <span
-                      key={ex}
-                      className="text-xs px-2.5 py-1 rounded-full font-medium"
-                      style={{ background: cap.bg, color: cap.accent }}
+                      key={chip}
+                      className="text-xs px-3 py-1 rounded-full text-white/80"
+                      style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}
                     >
-                      {ex}
+                      {chip}
                     </span>
                   ))}
                 </div>
-
-                {/* Hover CTA */}
-                <div
-                  className="inline-flex items-center gap-1 mt-4 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: cap.accent }}
-                >
-                  Ask Nora
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
+      </section>
 
-        {/* ── Bottom CTA strip ─────────────────────────────────────────── */}
-        <div
-          className="mt-8 rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ background: '#fff', border: '1.5px solid #E2E8F0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}
-        >
-          <div className="flex items-center gap-4">
-            {/* Heartbeat icon */}
+      {/* ── Features ─────────────────────────────────────────────────────── */}
+      <section id="features" className="py-16 lg:py-20" style={{ background: '#F8FAFC' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="mb-10">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#005EB8' }}>
+              WHAT NORA CAN DO
+            </p>
+            <h2
+              className="text-3xl sm:text-4xl font-black text-gray-900 mb-3"
+              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+            >
+              Four ways Nora helps you
+            </h2>
+            <p className="text-gray-500 text-sm leading-relaxed max-w-md">
+              Every response is grounded in verified NHS documentation. Nora never guesses. If she is
+              not confident, she tells you and connects you to the right service.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {FEATURES.map(f => (
+              <div
+                key={f.id}
+                className="bg-white rounded-xl p-5 cursor-pointer hover:shadow-md transition-shadow"
+                style={{ border: '1px solid #E2E8F0' }}
+                onClick={() => setChatOpen(true)}
+              >
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: f.iconBg, color: f.iconColor }}
+                >
+                  {f.icon}
+                </div>
+                <h3 className="font-bold text-gray-900 text-sm mb-2">{f.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed mb-4">{f.desc}</p>
+
+                {f.note && (
+                  <div
+                    className="mb-3 p-2.5 rounded-lg text-xs leading-relaxed"
+                    style={{ background: '#FFF8E1', border: '1px solid #FFE082', color: '#92400E' }}
+                  >
+                    <strong>Note:</strong> {f.note}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap gap-1">
+                  {f.tags.map(t => (
+                    <span
+                      key={t}
+                      className="text-[11px] px-2 py-0.5 rounded font-medium"
+                      style={{ background: '#EBF4FF', color: '#005EB8' }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How it works ─────────────────────────────────────────────────── */}
+      <section id="how" className="py-16 lg:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+
+          {/* Header */}
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#005EB8' }}>
+              HOW IT WORKS
+            </p>
+            <h2
+              className="text-3xl sm:text-4xl font-black text-gray-900 mb-3"
+              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+            >
+              From message to answer in seconds
+            </h2>
+            <p className="text-gray-500 text-sm max-w-lg mx-auto leading-relaxed">
+              Every message passes through a structured NHS-grade pipeline. Here is exactly what happens
+              between you sending a question and Nora replying.
+            </p>
+          </div>
+
+          {/* 4-step flow */}
+          <div className="relative mb-16">
             <div
-              className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: '#EBF4FF', color: '#005EB8' }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">Not sure where to start?</p>
-              <p className="text-gray-500 text-xs mt-0.5">Just say "hi" — Nora will guide you from there.</p>
+              className="hidden lg:block absolute top-7 left-[12.5%] right-[12.5%] h-px"
+              style={{ background: '#CBD5E1' }}
+            />
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {STEPS.map((step, i) => (
+                <div key={i} className="flex flex-col items-center text-center">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-black text-xl mb-4 relative z-10"
+                    style={{ background: '#005EB8', boxShadow: '0 0 0 4px white, 0 0 0 5px #CBD5E1' }}
+                  >
+                    {i + 1}
+                  </div>
+                  <h4 className="font-bold text-gray-900 text-sm mb-1.5">{step.title}</h4>
+                  <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <button
-            onClick={() => setChatOpen(true)}
-            className="flex-shrink-0 flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all hover:opacity-90 active:scale-95"
-            style={{ background: '#005EB8' }}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Open chat
-          </button>
-        </div>
-      </main>
 
-      {/* ── Footer ─────────────────────────────────────────────────────── */}
-      <footer style={{ background: '#003087' }}>
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <span
-              className="px-2 py-0.5 rounded text-white text-[10px] font-black tracking-widest"
-              style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)' }}
-            >
-              NHS
-            </span>
-            <span className="text-blue-200 text-xs">AskNora — NHS Virtual Health Assistant</span>
+          {/* Pipeline stats bar */}
+          <div
+            className="rounded-2xl p-5 mb-12 grid grid-cols-2 sm:grid-cols-4 gap-5"
+            style={{ background: '#F0F6FF', border: '1px solid #DBEAFE' }}
+          >
+            {[
+              { value: '7', label: 'Agents in pipeline', sub: 'Symptom, Medication, GP, Appt, Emergency, Memory, General' },
+              { value: '<3s', label: 'Avg. response time', sub: 'End-to-end including NHS retrieval' },
+              { value: '0.7', label: 'Confidence threshold', sub: 'Below this triggers human review' },
+              { value: '<1s', label: 'Emergency bypass', sub: '999 keywords skip AI entirely' },
+            ].map(stat => (
+              <div key={stat.label} className="text-center">
+                <p className="text-2xl font-black mb-0.5" style={{ color: '#005EB8' }}>{stat.value}</p>
+                <p className="text-gray-800 text-xs font-semibold mb-0.5">{stat.label}</p>
+                <p className="text-gray-400 text-[11px] leading-snug">{stat.sub}</p>
+              </div>
+            ))}
           </div>
-          <p className="text-blue-300/70 text-xs">
-            For informational purposes only · Not a substitute for professional medical advice
-          </p>
+
+          {/* Specialities grid */}
+          <div className="mb-2">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: '#768692' }}>
+              PIPELINE SPECIALITIES
+            </p>
+            <h3
+              className="text-xl sm:text-2xl font-black text-gray-900 mb-6"
+              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+            >
+              What makes Nora different
+            </h3>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {SPECIALITIES.map(s => (
+              <div
+                key={s.title}
+                className="rounded-xl p-4 flex items-start gap-3"
+                style={{ background: '#F8FAFC', border: '1px solid #E2E8F0' }}
+              >
+                <div
+                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mt-0.5"
+                  style={{ background: s.iconBg, color: s.iconColor }}
+                >
+                  {s.icon}
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <p className="font-bold text-gray-900 text-sm">{s.title}</p>
+                    <span
+                      className="text-[10px] px-1.5 py-0.5 rounded font-semibold"
+                      style={{ background: s.iconBg, color: s.iconColor }}
+                    >
+                      {s.stat}
+                    </span>
+                  </div>
+                  <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Safety ───────────────────────────────────────────────────────── */}
+      <section id="safety" className="py-16 lg:py-20" style={{ background: '#005EB8' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3 text-blue-300">
+              BUILT WITH SAFETY FIRST
+            </p>
+            <h2
+              className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight"
+              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+            >
+              Nora never guesses with your health
+            </h2>
+            <p className="text-blue-200 text-sm leading-relaxed mb-8">
+              Every design decision in Nora&apos;s pipeline prioritises patient safety over helpfulness.
+              If she cannot be certain, she says so and connects you to the right NHS service.
+            </p>
+            <button
+              onClick={() => setChatOpen(true)}
+              className="bg-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+              style={{ color: '#005EB8' }}
+            >
+              Start a conversation
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {SAFETY_ITEMS.map((s, i) => (
+              <div
+                key={i}
+                className="rounded-xl p-4 flex items-start gap-4"
+                style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)' }}
+              >
+                <span className="text-xl flex-shrink-0 mt-0.5">{s.emoji}</span>
+                <div>
+                  <p className="text-white font-semibold text-sm mb-1">{s.title}</p>
+                  <p className="text-blue-200 text-xs leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Footer ───────────────────────────────────────────────────────── */}
+      <footer style={{ background: '#003087' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
+          <div
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6"
+            style={{ borderBottom: '1px solid rgba(255,255,255,0.12)' }}
+          >
+            <div className="flex items-center gap-3">
+              <span
+                className="px-2.5 py-1 rounded text-white text-xs font-black tracking-widest"
+                style={{ background: '#005EB8', border: '2px solid rgba(255,255,255,0.3)' }}
+              >
+                NHS
+              </span>
+              <div>
+                <p className="text-white font-bold text-sm">AskNora</p>
+                <p className="text-blue-300 text-xs">NHS AI Virtual Health Assistant</p>
+              </div>
+            </div>
+            <nav className="flex gap-6">
+              <a href="#features" className="text-blue-300 hover:text-white text-xs transition-colors">Services</a>
+              <a href="#how" className="text-blue-300 hover:text-white text-xs transition-colors">How it works</a>
+              <a href="#safety" className="text-blue-300 hover:text-white text-xs transition-colors">Safety</a>
+            </nav>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-5">
+            <p className="text-blue-300 text-xs">
+              Built by <span className="text-white font-medium">Rohit Kumar Dubey</span>
+              {' '}&middot;{' '}
+              <a
+                href="https://github.com/roger-rkd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-white transition-colors underline"
+              >
+                GitHub
+              </a>
+            </p>
+            <p className="text-blue-400/70 text-xs text-center sm:text-right">
+              For informational purposes only. Not a substitute for professional medical advice.
+            </p>
+          </div>
         </div>
       </footer>
 
-      {/* ── Floating chat bubble ────────────────────────────────────────── */}
       <ChatBubble isOpen={chatOpen} onOpenChange={setChatOpen} />
-    </div>
+    </>
   )
 }

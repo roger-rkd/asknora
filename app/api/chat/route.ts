@@ -21,8 +21,8 @@ export async function POST(req: Request) {
       throw new Error(`n8n responded with ${response.status}`)
     }
 
-    const data = await response.json()
-    return Response.json(data)
+const text = await response.text()
+return Response.json({ reply: text })
 
   } catch (error) {
     console.error('Chat API error:', error)

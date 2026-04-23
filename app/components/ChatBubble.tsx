@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import NoraAvatar from './NoraAvatar'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -14,12 +15,6 @@ const SUGGESTIONS = [
   'How do I book an appointment?',
 ]
 
-const NHS_LOGO = (
-  <svg viewBox="0 0 50 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto">
-    <rect width="50" height="26" rx="2" fill="white" fillOpacity="0.15" />
-    <text x="25" y="19" textAnchor="middle" fill="white" fontSize="14" fontWeight="900" fontFamily="Arial, sans-serif" letterSpacing="1">NHS</text>
-  </svg>
-)
 
 interface Props {
   isOpen: boolean
@@ -30,7 +25,7 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi, I'm Nora 👋 — your NHS virtual health assistant. I can help with symptoms, medications, appointments, and more. How can I help you today?",
+      content: "Hi, I'm Nora 👋! Your NHS virtual health assistant. I can help with symptoms, medications, appointments, and more.",
     },
   ])
   const [input, setInput] = useState('')
@@ -75,7 +70,7 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
       })
       const data = await res.json()
       const reply =
-        data.output || data.response || data.message || 'Sorry, I could not process your request.'
+        data.reply || data.output || data.response || data.message || 'Sorry, I could not process your request.'
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
     } catch {
       setMessages(prev => [
@@ -120,13 +115,10 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
             style={{ background: 'linear-gradient(135deg, #003087 0%, #005EB8 100%)' }}
           >
             <div
-              className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center shadow-inner"
-              style={{ background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(255,255,255,0.3)' }}
+              className="flex-shrink-0 w-9 h-9 rounded-full overflow-hidden shadow-inner"
+              style={{ border: '1.5px solid rgba(255,255,255,0.4)' }}
             >
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-              </svg>
+              <NoraAvatar className="w-full h-full" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white font-bold text-sm leading-tight tracking-wide">Nora</p>
@@ -173,10 +165,10 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
               >
                 {msg.role === 'assistant' && (
                   <div
-                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center shadow-sm mb-0.5"
-                    style={{ background: '#005EB8' }}
+                    className="flex-shrink-0 w-7 h-7 rounded-full overflow-hidden shadow-sm mb-0.5"
+                    style={{ border: '1.5px solid #E2E8F0' }}
                   >
-                    <span className="text-white text-[9px] font-black">N</span>
+                    <NoraAvatar className="w-full h-full" />
                   </div>
                 )}
                 <div
@@ -191,7 +183,20 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
                       : { background: '#fff', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }
                   }
                 >
-                  {msg.content}
+                  <span 
+  dangerouslySetInnerHTML={{ 
+    __html: msg.content
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>')
+      .replace(/&lt;a /g, '<a ')
+      .replace(/&lt;\/a&gt;/g, '</a>')
+      .replace(/href=&quot;/g, 'href="')
+      .replace(/&quot;&gt;/g, '">')
+      .replace(/target=&quot;_blank&quot;/g, 'target="_blank"')
+  }} 
+/>
                 </div>
               </div>
             ))}
@@ -226,10 +231,10 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
             {loading && (
               <div className="flex items-end gap-2 justify-start">
                 <div
-                  className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center shadow-sm"
-                  style={{ background: '#005EB8' }}
+                  className="flex-shrink-0 w-7 h-7 rounded-full overflow-hidden shadow-sm"
+                  style={{ border: '1.5px solid #E2E8F0' }}
                 >
-                  <span className="text-white text-[9px] font-black">N</span>
+                  <NoraAvatar className="w-full h-full" />
                 </div>
                 <div
                   className="rounded-2xl rounded-bl-sm px-4 py-3"
@@ -292,31 +297,27 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
         )}
         <button
           onClick={() => onOpenChange(!isOpen)}
-          className="relative w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-xl"
-          style={{ background: 'linear-gradient(135deg, #003087 0%, #005EB8 100%)' }}
+          className="relative w-14 h-14 rounded-full shadow-lg overflow-hidden transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-xl"
+          style={{ border: '2.5px solid white', boxShadow: '0 4px 20px rgba(0,48,135,0.35)' }}
           aria-label={isOpen ? 'Close Nora chat' : 'Chat with Nora'}
         >
           {!isOpen && hasUnread && (
-            <span
-              className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-white text-[9px] font-bold shadow"
-            >
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-white text-[9px] font-bold shadow z-10">
               1
             </span>
           )}
-          <div
-            className="transition-all duration-200"
-            style={{ transform: isOpen ? 'rotate(0deg) scale(1)' : 'rotate(0deg) scale(1)' }}
-          >
-            {isOpen ? (
+          {isOpen ? (
+            <div
+              className="w-full h-full flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #003087 0%, #005EB8 100%)' }}
+            >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
-            ) : (
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            )}
-          </div>
+            </div>
+          ) : (
+            <NoraAvatar className="w-full h-full" />
+          )}
         </button>
       </div>
     </div>
