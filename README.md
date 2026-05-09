@@ -3,7 +3,7 @@
 <br />
 
 <!-- Dynamic Banner -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0,003087,005EB8&height=200&section=header&text=Nora%20NHS%20AI%20Health%20Assistant&fontSize=36&fontColor=ffffff&fontAlignY=38&desc=A%20multi-agent%20AI%20triage%20system%20built%20on%20n8n%20%7C%20Powered%20by%20LLaMA%203.3%2070B&descAlignY=58&descSize=14&animation=fadeIn" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0,003087,005EB8&height=200&section=header&text=AskNora:%20NHS%20AI%20Health%20Assistant&fontSize=36&fontColor=ffffff&fontAlignY=38&desc=A%20multi-agent%20AI%20triage%20system%20built%20on%20n8n%20%7C%20Powered%20by%20LLaMA%203.3%2070B&descAlignY=58&descSize=14&animation=fadeIn" width="100%" />
 
 <br />
 
@@ -25,7 +25,7 @@
 
 - [Situation](#-situation)
 - [Task](#-task)
-- [Action: How It Was Built](#-action-how-it-was-built)
+- [How It Was Built](#-how-it-was-built)
 - [Result](#-result)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
@@ -60,7 +60,7 @@ The system had to be safe-first, auditable, and production-ready without requiri
 
 ---
 
-## ⚙️ Action: How It Was Built
+## ⚙️ How It Was Built
 
 Rather than writing a monolithic chatbot, the entire orchestration was built visually using **n8n** — wiring together agents, logic gates, and integrations in a fraction of the time traditional code would take.
 
@@ -218,23 +218,28 @@ All interactions, regardless of confidence score, are logged to Google Sheets fo
 
 <!-- Replace the placeholder paths below with actual screenshots from your project -->
 
-**Chat Interface**
+**Chat Interface** 👇🏼
 
-![Nora Chat Interface](./screenshots/chat-interface.png)
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/2763a6aa-72b1-417b-894e-b55db30afbf6" />
 
-**n8n Workflow Overview**
+<br>
 
-![n8n Workflow](./screenshots/n8n-workflow.png)
+**n8n Workflow Overview** 👇🏼
 
-**Confidence Gate in Action**
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/3a9e35ed-50fb-4d9c-ad6a-99ae10a8a4ba" />
 
-![Confidence Gate](./screenshots/confidence-gate.png)
+<br>
 
-**Google Sheets Audit Log**
+**Confidence Gate in Action** 👇🏼
 
-![Audit Log](./screenshots/audit-log.png)
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/b2e51111-15bb-4fb4-a50e-9c3076103818" />
 
-> *To add your own screenshots, create a `screenshots/` folder in this repository and drop the images in.*
+<br>
+
+**Google Sheets Audit Log** 👇🏼
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/1bb96c0f-57a4-40b9-8f2a-5698ea3d5cde" />
+
 
 ---
 
