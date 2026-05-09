@@ -113,14 +113,17 @@ Patient Message
 
 | Metric | Outcome |
 |---|---|
-| Agents deployed | 7 specialist agents |
-| Intent categories handled | EMERGENCY, SYMPTOM, MEDICATION, APPOINTMENT, GP_FINDER, MEMORY, GENERAL |
+| Agents deployed | 7 specialist agents across 7 intent categories |
+| Test conversations completed | 100+ across varied patient scenarios |
+| Responses above confidence threshold | Consistently above 0.7 in testing |
+| RAG knowledge base | 2 NHS-aligned documents (architecture supports direct NHS document replacement) |
+| Prompt iterations to production safety | 4 to 5 rounds of refinement per agent |
 | Orchestration build time | ~2 hours in n8n |
-| Safety gate | Confidence score < 0.7 triggers human-in-the-loop |
+| Safety gate | Confidence score below 0.7 triggers human-in-the-loop |
 | Logging | Every interaction captured in Google Sheets |
 | Live URL | [asknora.co.uk](https://www.asknora.co.uk) |
 
-The orchestration, routing, confidence gating, HITL escalation, and citation validation took roughly two hours to wire in n8n. The hard work was in the **agent prompts and the safety logic**, not the plumbing.
+The orchestration, routing, confidence gating, HITL escalation, and citation validation took roughly two hours to wire in n8n. The hard work was in the **agent prompts and the safety logic** — each agent went through 4 to 5 rounds of refinement before reaching production behaviour.
 
 ---
 
