@@ -13,6 +13,12 @@
 
 <br />
 
+<div align="center">
+  <img src="./assets/demo.gif" alt="Nora NHS AI Health Assistant Demo" width="750" />
+</div>
+
+<br />
+
 > **A production-grade NHS virtual health assistant powered by a multi-agent architecture. One webhook. One classifier. Seven specialist agents. Each doing exactly one job.**
 
 <br />
