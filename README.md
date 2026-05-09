@@ -8,7 +8,7 @@
 <br />
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-asknora.co.uk-005EB8?style=for-the-badge&logoColor=white)](https://www.asknora.co.uk)
-[![LinkedIn Post](https://img.shields.io/badge/LinkedIn-Read_the_Post-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)]([https://www.linkedin.com/feed/update/urn:li:activity:7455280820300247040/])
+[![LinkedIn Post](https://img.shields.io/badge/LinkedIn-Read_the_Post-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed/update/urn:li:activity:7455280820300247040/)
 [![n8n](https://img.shields.io/badge/Built_with-n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white)](https://n8n.io)
 
 <br />
@@ -269,7 +269,7 @@ All interactions, regardless of confidence score, are logged to Google Sheets fo
 | Resource | URL |
 |---|---|
 | Live Demo | [asknora.co.uk](https://www.asknora.co.uk) |
-| LinkedIn Post | [Read the full breakdown](https://www.linkedin.com/posts/rohitkumardubey_YOUR-POST-ID) |
+| LinkedIn Post | [Read the full breakdown](https://www.linkedin.com/feed/update/urn:li:activity:7455280820300247040/) |
 | n8n | [n8n.io](https://n8n.io) |
 | NHS Digital | [digital.nhs.uk](https://digital.nhs.uk) |
 
