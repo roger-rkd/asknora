@@ -98,6 +98,7 @@ Patient Message
       └── ≥ 0.7 → Citation Validator → Response to Patient
                                     → Log to Google Sheets
 ```
+> The full n8n workflow export and all agent system prompts are available in the [`workflow/`](./workflow/) and [`prompts/`](./prompts/) folders.
 
 ### Key Engineering Decisions
 
