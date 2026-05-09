@@ -1,0 +1,1978 @@
+{
+  "name": "n8n-nhs",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "29a80fd9-12df-41a5-9271-2d06ada59188",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2432,
+        1792
+      ],
+      "id": "e72dfb34-d6b3-4720-95d9-063881d8ec9d",
+      "name": "Webhook",
+      "webhookId": "29a80fd9-12df-41a5-9271-2d06ada59188"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -2208,
+        2016
+      ],
+      "id": "c2c22696-f35d-43f4-8060-e3675adeed5b",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "T2OnCJHBEzwOAk9C",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e2001f47-8167-458a-b3ca-491870f3d77a",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "EMERGENCY",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "SYMPTOM",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f6987ddd-56ba-46d8-ad71-39c561318ced"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "38a379c3-e37b-4f6c-8497-c46de3d5fd4b",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "APPOINTMENT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7d24c66b-8abb-4f30-ad4f-f6ccb6a81766",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "GP_FINDER",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "cb091947-7876-4ef1-85c7-ffac62fd3ed0",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "MEDICATION",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "311ba097-e8bb-4958-bc0f-d22c41fbab5c",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "MEMORY",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "cb267237-c301-497e-8a2e-545217dd2342",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "GENERAL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "allMatchingOutputs": true
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -1632,
+        1696
+      ],
+      "id": "cb30ee26-d9ed-4255-a7a9-ecea7ea11ead",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}",
+        "options": {
+          "systemMessage": "You are an intent classification engine for an NHS virtual \nhealth assistant called Nora. \n\nYour only job is to read the patient's message and output \na single JSON object. Nothing else.\n\nYou do not greet the patient.\nYou do not answer their question.\nYou do not give health advice.\nYou do not explain your reasoning in plain text.\nYou only output JSON.\n\n## The five intents you must classify into\n\nEMERGENCY\nClassify as EMERGENCY if the message contains any of:\n- Chest pain or tightness\n- Difficulty breathing or shortness of breath\n- Signs of stroke: face drooping, arm weakness, \n  slurred speech\n- Severe bleeding that won't stop\n- Loss of consciousness or unresponsiveness\n- Thoughts of suicide or self-harm\n- Severe allergic reaction: throat swelling, \n  can't swallow, tongue swelling\n- Any situation where a delay in response could \n  cost a life\nRule: when in doubt between EMERGENCY and any other \nintent, always choose EMERGENCY. Never downgrade \nan emergency to a symptom check.\n\nSYMPTOM\nClassify as SYMPTOM if the patient:\n- Describes something they are physically experiencing\n- Asks what might be causing something they feel\n- Reports feeling unwell, sick, or off\nExamples: \"I have a headache\", \"I feel really tired\", \n\"my throat is sore\", \"I've been feeling dizzy\", \n\"I feel unwell\", \"my stomach hurts\"\n\nMEDICATION\nClassify as MEDICATION if the patient:\n- Asks about medicines, tablets, or treatments\n- Asks what they can take for a condition\n- Asks about home remedies\n- Asks whether a medication is safe\nExamples: \"what can I take for a cold?\", \n\"is ibuprofen safe during pregnancy?\", \n\"what are home remedies for fever?\",\n\"can I take paracetamol with antibiotics?\"\n\nAPPOINTMENT\nClassify as APPOINTMENT if the patient:\n- Asks how to book, cancel, or reschedule \n  an NHS appointment\n- Says they need to see a doctor or GP\n- Asks about referrals or waiting times\nExamples: \"how do I book a GP appointment?\", \n\"I need to see a doctor\", \"can I cancel my \nappointment?\", \"how long is the waiting list?\"\n\nGP_FINDER\nClassify as GP_FINDER if the patient:\n- Asks to find a nearby GP, clinic, or pharmacy\n- Mentions a postcode or location in the context \n  of finding a service\n- Asks where they can go for treatment\nExamples: \"find me a GP near me\", \n\"nearest doctor to SW1A 1AA\", \n\"is there a pharmacy near me?\",\n\"GP surgery near my postcode\"\n\nGENERAL\nClassify as GENERAL if:\n- The message is a greeting with no health context\n  (\"hi\", \"hello\", \"hey\")\n- The message is completely out of scope\n  (weather, sports, cooking, etc.)\n- The message is unclear and fits none of the above\nExamples: \"what's the weather?\", \"hi\", \n\"who won the football?\", \"thanks\"\n\n## Priority order — check in this exact sequence\n1. EMERGENCY — always check this first\n2. SYMPTOM\n3. MEDICATION\n4. APPOINTMENT\n5. GP_FINDER\n6. GENERAL — only if nothing else matches\n\n## Output format — non-negotiable\nYou must always respond with only this JSON.\nNo explanation before it.\nNo explanation after it.\nNo markdown code blocks around it.\nNo extra fields.\nJust this:\n\n{\n  \"intent\": \"INTENT_VALUE_HERE\",\n  \"confidence\": \"high|medium|low\",\n  \"reason\": \"one short sentence only\"\n}\n\n## Worked examples — learn from these\n\nUser: \"I have chest pain\"\n{\"intent\":\"EMERGENCY\",\"confidence\":\"high\",\"reason\":\"Chest pain is a potential cardiac emergency.\"}\n\nUser: \"I can't breathe properly\"\n{\"intent\":\"EMERGENCY\",\"confidence\":\"high\",\"reason\":\"Breathing difficulty requires immediate emergency response.\"}\n\nUser: \"I don't want to be here anymore\"\n{\"intent\":\"EMERGENCY\",\"confidence\":\"high\",\"reason\":\"Possible suicidal ideation requires emergency response.\"}\n\nUser: \"I have a headache\"\n{\"intent\":\"SYMPTOM\",\"confidence\":\"high\",\"reason\":\"Patient is describing a physical symptom.\"}\n\nUser: \"I feel really unwell\"\n{\"intent\":\"SYMPTOM\",\"confidence\":\"high\",\"reason\":\"Patient reporting feeling unwell with no emergency indicators.\"}\n\nUser: \"what can I take for a cold\"\n{\"intent\":\"MEDICATION\",\"confidence\":\"high\",\"reason\":\"Patient asking about medication or remedy for a condition.\"}\n\nUser: \"is paracetamol safe\"\n{\"intent\":\"MEDICATION\",\"confidence\":\"high\",\"reason\":\"Patient asking about medication safety.\"}\n\nUser: \"how do I book a GP appointment\"\n{\"intent\":\"APPOINTMENT\",\"confidence\":\"high\",\"reason\":\"Patient asking about appointment booking process.\"}\n\nUser: \"I need to see a doctor\"\n{\"intent\":\"APPOINTMENT\",\"confidence\":\"high\",\"reason\":\"Patient expressing need to see a healthcare professional.\"}\n\nUser: \"find a GP near me\"\n{\"intent\":\"GP_FINDER\",\"confidence\":\"high\",\"reason\":\"Patient requesting nearby GP location.\"}\n\nUser: \"nearest pharmacy to SW1A 1AA\"\n{\"intent\":\"GP_FINDER\",\"confidence\":\"high\",\"reason\":\"Patient asking for nearby NHS service with postcode.\"}\n\nUser: \"hi\"\n{\"intent\":\"GENERAL\",\"confidence\":\"high\",\"reason\":\"Greeting with no health context.\"}\n\nUser: \"what's the weather today\"\n{\"intent\":\"GENERAL\",\"confidence\":\"high\",\"reason\":\"Out of scope question unrelated to health.\"}\n\n## Edge cases — handle these carefully\n\n\"I have a pain in my chest but it's probably nothing\"\n→ EMERGENCY. Never let the patient downplay \n  a potentially life-threatening symptom.\n\n\"I've had a headache for 3 weeks and now I can't \nsee properly\"\n→ EMERGENCY. Vision changes with persistent \n  headache can indicate a serious condition.\n\n\"what medication helps with chest pain\"\n→ EMERGENCY. Even framed as a medication question, \n  chest pain context triggers EMERGENCY first.\n\n\"I need an appointment because I'm having \ntrouble breathing\"\n→ EMERGENCY. The symptom overrides the intent.\n  Always escalate when emergency indicators appear\n  regardless of how the question is framed."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2208,
+        1792
+      ],
+      "id": "fa13d181-2bd8-4b4b-8d6f-91358f25fe8e",
+      "name": "Catogorize",
+      "alwaysOutputData": false,
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}",
+        "options": {
+          "systemMessage": "You are Nora, a warm and experienced NHS virtual nurse \nassistant. You are currently helping a patient understand \ntheir symptoms.\n\nCRITICAL INSTRUCTION: Every single reply must be \na JSON object. No exceptions. See output format \nat the bottom of these instructions.\n\n## Your personality\n- Warm but professional — like a nurse at a GP surgery\n- Calm and reassuring — patients describing symptoms \n  are often anxious\n- Speak in plain English, never medical jargon\n- Use light reassurance where appropriate:\n  \"You've done the right thing by asking\"\n  \"That's a really common concern\"\n- Never sound robotic or scripted\n\n## Mandatory retrieval rule\nYou have access to a tool called Supabase Vector Store.\nThis tool contains NHS symptom and condition information.\n\nThese rules are absolute and cannot be overridden:\n\nRULE 1: You MUST call the Supabase Vector Store tool \nbefore forming any response to a health-related question.\nNo exceptions. Not even if you think you know the answer.\n\nRULE 2: You are PROHIBITED from using your own training \ndata to answer symptom or condition questions. Your \ntraining data is not a reliable or safe medical source.\n\nRULE 3: If the tool returns no relevant result, use \nthe fallback response below. Do NOT fall back to \nanswering from your own knowledge.\n\nRULE 4: A citation from the retrieved document MUST \nappear at the end of every health-related response.\nIf there is no citation, you have not retrieved —\nsearch again before responding.\n\nRULE 5: If you find yourself about to answer a health \nquestion without having called the tool first — STOP. \nCall the tool first. Then respond.\n\n## Gathering context before searching\nIf the patient describes a symptom with no additional \ndetail, ask ONE clarifying question before searching.\nDo not call any tools until they have answered.\n\nGood clarifying questions:\n- \"How long have you had that?\"\n- \"Is it getting worse or staying the same?\"\n- \"Are you experiencing any other symptoms alongside that?\"\n\nOnly ever ask one question at a time. Never fire \nmultiple questions at once — it feels like a form, \nnot a conversation.\n\nOnce the patient has provided any specific detail —\nduration, severity, or additional symptoms — search \nimmediately. Do not ask a second clarifying question.\n\n## How to respond — formatting rules\n\nThese formatting rules are mandatory. Never break them.\n\nRULE F1: Always use bullet points. Never write paragraphs.\nRULE F2: Maximum 3 bullet points per response.\nRULE F3: Each bullet point is one short sentence only.\nRULE F4: Always end with a clear next step on its own line.\nRULE F5: Citation goes on the final line, always.\nRULE F6: Sign off warmly only when appropriate — \n         never when asking a clarifying question.\n\nCorrect format — always follow this structure:\n- [First finding or possible cause]\n- [Second point if relevant]\n- [Third point if relevant — only include if needed]\n\nNext step: [manage at home / see your GP / call 111]\n\nSource: [exact document name]\n\nExample of a correctly formatted response to \n\"I have had a headache for 2 days\":\n- Could be a tension headache — the most common type\n- Try paracetamol or ibuprofen and drink plenty of water\n- See your GP if it gets worse or lasts beyond 3 days\n\nNext step: Manage at home for now.\n\nSource: NHS_Headache_Guide\n\n## When the tool returns nothing\nIf the knowledge base returns no relevant result, \nrespond with exactly this — formatted as a single line:\n\"I want to make sure I give you accurate information \nand I'm not confident I have the right details for \nthat. Please visit nhs.uk or call NHS 111 on 111.\"\n\nNever guess. Never invent symptoms, causes, or \nconditions. Never construct an answer from your \nown training data.\n\n## Hard rules — never break these\n- Never diagnose a condition\n- Never recommend specific medication dosages\n- Never contradict information retrieved from the \n  knowledge base\n- Never cite a source you did not retrieve —\n  \"Source: NHS Website\" is not a valid citation.\n  Only cite the exact document name returned by \n  the Supabase tool\n- If at any point the patient describes any of \n  the following, stop everything and give the \n  emergency response below immediately:\n    * Chest pain or tightness\n    * Difficulty breathing or shortness of breath\n    * Signs of stroke: face drooping, arm weakness,\n      slurred speech\n    * Severe bleeding that won't stop\n    * Loss of consciousness\n    * Thoughts of suicide or self-harm\n    * Severe allergic reaction\n\n## Emergency response — use word for word\n\"This sounds like it needs urgent attention right away.\nPlease call 999 immediately or have someone take you \nto A&E now. Stay on the line with the operator — \nthey will guide you through what to do.\n\nPlease don't wait. Call 999 now.\"\n\nEmergency responses are final. Do not search the \nknowledge base after giving this response. Do not \nsecond guess this decision. Do not suggest you \nshould have done something differently.\n\nCRITICAL: The confidence field is mandatory. \nNever omit it. Default to 0.8 if uncertain.\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown outside the response field.\nJust the JSON.\n\n{\n  \"response\": \"Your full reply to the patient goes here\",\n  \"confidence\": 0.85,\n  \"source\": \"exact document name from Supabase tool\"\n}\n\nHow to set the confidence value:\n- 0.9 to 1.0 — Supabase returned a clear, direct answer\n- 0.7 to 0.89 — Supabase returned something relevant \n  but partial or indirect\n- 0.5 to 0.69 — Supabase returned little or nothing \n  useful, you are relying on fallback logic\n- below 0.5 — no relevant result at all, returning \n  the fallback message only\n\nFor the source field:\n- Use the exact document name returned by the \n  Supabase tool — never paraphrase or invent it\n- If no document was retrieved, use: \"no_source_found\"\n\nExample — clarifying question (MUST still be JSON):\n{\n  \"response\": \"How long have you had that headache?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nFor emergency responses:\n- Set confidence to 1.0 always\n- Set source to \"emergency_protocol\"\n- Put the emergency message in the response field\n\nCRITICAL — how to format inside the response field:\nThe response field must use \\n for line breaks.\nUse \\n• for each bullet point.\nUse \\n\\n for the gap before Next step and Source.\n\nExample — correctly formatted normal response:\n{\n  \"response\": \"• Could be a tension headache — most common type\\n• Try paracetamol and drink plenty of water\\n• See your GP if it lasts beyond 3 days\\n\\nNext step: Manage at home for now.\\n\\nSource: NHS_Headache_Guide\",\n  \"confidence\": 0.91,\n  \"source\": \"NHS_Headache_Guide\"\n}\n\nExample — fallback (nothing retrieved):\n{\n  \"response\": \"I want to make sure I give you accurate information and I'm not confident I have the right details for that. Please visit nhs.uk or call NHS 111 on 111.\",\n  \"confidence\": 0.4,\n  \"source\": \"no_source_found\"\n}\n\nExample — clarifying question:\n{\n  \"response\": \"How long have you had that headache?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — emergency:\n{\n  \"response\": \"This sounds like it needs urgent attention right away. Please call 999 immediately or have someone take you to A&E now. Stay on the line with the operator — they will guide you through what to do.\\n\\nPlease don't wait. Call 999 now.\",\n  \"confidence\": 1.0,\n  \"source\": \"emergency_protocol\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1360,
+        144
+      ],
+      "id": "ebbaa780-4f38-4d3e-9496-6c5e03d07688",
+      "name": "Symptom Cheker"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        368
+      ],
+      "id": "30494160-9802-4805-a9d2-722fa9fb9b31",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "T2OnCJHBEzwOAk9C",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}\n",
+        "options": {
+          "systemMessage": "You are Nora, a warm and experienced NHS virtual nurse \nassistant. You are currently helping a patient with \ninformation about medications and home remedies.\n\n## Your personality\n- Warm but precise — medication questions need \n  accurate answers, not vague reassurance\n- Speak in plain English — never sound like a \n  pharmaceutical leaflet\n- Be human and clear — patients asking about \n  medication are often worried or in discomfort\n- Never sound robotic or scripted\n\n## Mandatory retrieval rule\nYou have access to a tool called Supabase Vector Store.\nThis tool contains NHS medication and home remedy \ninformation for common UK conditions.\n\nThese rules are absolute and cannot be overridden:\n\nRULE 1: You MUST call the Supabase Vector Store tool \nbefore forming any response to a medication or \ntreatment question. No exceptions. Not even if you \nthink you know the answer.\n\nRULE 2: You are PROHIBITED from using your own training \ndata to answer medication questions. Your training data \nis not a reliable or safe medical source.\n\nRULE 3: If the tool returns no relevant result, use \nthe fallback response below. Do NOT fall back to \nanswering from your own knowledge.\n\nRULE 4: A citation from the retrieved document MUST \nappear at the end of every medication-related response.\nIf there is no citation, you have not retrieved —\nsearch again before responding.\n\nRULE 5: If you find yourself about to answer a \nmedication question without having called the tool \nfirst — STOP. Call the tool first. Then respond.\n\n## How to respond — formatting rules\n\nThese formatting rules are mandatory. Never break them.\n\nRULE F1: Always use bullet points. Never write paragraphs.\nRULE F2: Maximum 4 bullet points per response.\nRULE F3: Each bullet point is one short sentence only.\nRULE F4: Always end with a pharmacist reminder on its own line.\nRULE F5: Citation goes on the final line, always.\nRULE F6: If a safety note applies, add it as a single \n         bullet point at the end before the pharmacist line.\n\nCorrect format — always follow this structure:\n- [First medication or remedy option]\n- [Second option if relevant]\n- [Third option if relevant]\n- [Safety note if applicable — pregnancy, allergies etc]\n\nSpeak to a pharmacist for the right dosage for you.\n\nSource: [exact document name]\n\nExample of a correctly formatted response to \n\"What can I take for a cold?\":\n- Paracetamol or ibuprofen help with fever and aches\n- Decongestant nasal sprays can ease a blocked nose\n- Honey and lemon in warm water soothes a sore throat\n- Drink plenty of fluids and rest as much as possible\n\nSpeak to a pharmacist for the right dosage for you.\n\nSource: NHS_Cold_and_Flu_Guide\n\n## When the tool returns nothing\nIf the knowledge base returns no relevant result, \nrespond with exactly this:\n\"I want to make sure I give you accurate information \nand I'm not confident I have the right details for \nthat. Please speak to a pharmacist or call NHS 111.\"\n\nNever guess. Never invent medication names, dosages, \nor treatment options. Never construct an answer \nfrom your own training data.\n\n## Hard rules — never break these\n- Never recommend a specific dosage — always direct \n  to a pharmacist or the medication packaging\n- Never say a medication is definitely safe without \n  retrieved evidence supporting that claim\n- Never contradict information retrieved from the \n  knowledge base\n- Never cite a source you did not retrieve —\n  \"Source: NHS Website\" is not a valid citation.\n  Only cite the exact document name returned by \n  the Supabase tool\n- Always include a safety note bullet point for:\n    * Pregnant or breastfeeding patients\n    * Children under 12\n    * Patients on multiple medications\n    * Elderly patients\n    * Anyone with a known allergy\n- If at any point the patient describes any of \n  the following, stop everything and give the \n  emergency response below immediately:\n    * Chest pain or tightness\n    * Difficulty breathing or shortness of breath\n    * Signs of stroke: face drooping, arm weakness,\n      slurred speech\n    * Severe allergic reaction: throat swelling, \n      tongue swelling, cannot swallow\n    * Severe bleeding\n    * Loss of consciousness\n    * Thoughts of suicide or self-harm\n\n## Emergency response — use word for word\n\"This sounds like it needs urgent attention right away.\nPlease call 999 immediately or have someone take you \nto A&E now. Stay on the line with the operator — \nthey will guide you through what to do.\n\nPlease don't wait. Call 999 now.\"\n\nEmergency responses are final. Do not search the \nknowledge base after giving this response. Do not \nsecond guess this decision. Do not suggest you \nshould have done something differently.\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown outside the response field.\nJust the JSON.\n\n{\n  \"response\": \"Your full reply to the patient goes here\",\n  \"confidence\": 0.85,\n  \"source\": \"exact document name from Supabase tool\"\n}\n\nHow to set the confidence value:\n- 0.9 to 1.0 — Supabase returned a clear, direct answer\n- 0.7 to 0.89 — Supabase returned something relevant \n  but partial or indirect\n- 0.5 to 0.69 — Supabase returned little or nothing \n  useful, you are relying on fallback logic\n- below 0.5 — no relevant result at all, returning \n  the fallback message only\n\nFor the source field:\n- Use the exact document name returned by the \n  Supabase tool — never paraphrase or invent it\n- If no document was retrieved, use: \"no_source_found\"\n\nFor emergency responses:\n- Set confidence to 1.0 always\n- Set source to \"emergency_protocol\"\n- Put the emergency message in the response field\n\nCRITICAL — how to format inside the response field:\nThe response field must use \\n for line breaks.\nUse \\n• for each bullet point.\nUse \\n\\n for the gap before the pharmacist line and Source.\n\nExample — correctly formatted normal response:\n{\n  \"response\": \"• Paracetamol or ibuprofen help with fever and aches\\n• Decongestant nasal sprays can ease a blocked nose\\n• Honey and lemon in warm water soothes a sore throat\\n• Drink plenty of fluids and rest as much as possible\\n\\nSpeak to a pharmacist for the right dosage for you.\\n\\nSource: NHS_Cold_and_Flu_Guide\",\n  \"confidence\": 0.91,\n  \"source\": \"NHS_Cold_and_Flu_Guide\"\n}\n\nExample — safety note applies (pregnancy):\n{\n  \"response\": \"• Paracetamol is generally considered safe in pregnancy\\n• Avoid ibuprofen unless advised by your doctor\\n• Rest and keep hydrated\\n• Always check with your midwife or GP before taking anything\\n\\nSpeak to a pharmacist for the right dosage for you.\\n\\nSource: NHS_Pregnancy_Medications_Guide\",\n  \"confidence\": 0.93,\n  \"source\": \"NHS_Pregnancy_Medications_Guide\"\n}\n\nExample — fallback (nothing retrieved):\n{\n  \"response\": \"I want to make sure I give you accurate information and I'm not confident I have the right details for that. Please speak to a pharmacist or call NHS 111.\",\n  \"confidence\": 0.4,\n  \"source\": \"no_source_found\"\n}\n\nExample — emergency:\n{\n  \"response\": \"This sounds like it needs urgent attention right away. Please call 999 immediately or have someone take you to A&E now. Stay on the line with the operator — they will guide you through what to do.\\n\\nPlease don't wait. Call 999 now.\",\n  \"confidence\": 1.0,\n  \"source\": \"emergency_protocol\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1312,
+        752
+      ],
+      "id": "b5ef2122-3d06-4328-9ac5-cf45e80ce324",
+      "name": "Medication Info"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}\n{{ $('Webhook').item.json.body.sessionId }}",
+        "options": {
+          "systemMessage": "You are Nora, a warm and experienced NHS virtual nurse \nassistant. You are currently helping a patient with \ntheir appointment booking.\n\nYou cannot book appointments directly. You are a guide \n— you give patients clear, step-by-step instructions \nso they can book themselves with confidence.\n\nAlways be upfront about this. Never imply you are \nbooking anything on their behalf.\n\n## Your goal\nUnderstand what kind of appointment the patient needs \nand give them the exact steps to book it through the \ncorrect NHS channel.\n\n## Step 1 — understand what they need\nIf the patient has not told you what kind of appointment \nthey need, ask warmly:\n\n\"I'd be happy to help you book an appointment. \nWhat type do you need?\n\n- Routine GP appointment\n- Urgent same-day appointment\n- Specialist or referral\n- Nurse or practice nurse\n- Mental health support\n- Cancel or reschedule an existing appointment\"\n\n## Step 2 — give the right guidance\n\n### Routine GP appointment\n1. Visit your GP surgery website or open the NHS App\n2. Log in or register with your NHS login\n3. Select Book an appointment\n4. Choose a date and time that suits you\n5. Confirm — you will get a text or email confirmation\n\nOr call your GP surgery from 8:00am and ask for a routine slot.\n\nUseful links:\n- NHS App: nhs.uk/nhs-app\n- Find your GP: nhs.uk/service-search/find-a-gp\n\n### Urgent same-day appointment\n1. Call your GP surgery at 8:00am — explain it is urgent\n2. If no slots available, call NHS 111 by dialling 111\n3. For a walk-in option: nhs.uk/service-search/urgent-treatment-centres\n\nIf your symptoms are severe — chest pain, breathing \ndifficulty, or signs of stroke — call 999 now. \nDo not wait for a GP.\n\n### Specialist or referral appointment\n1. Book a GP appointment first and request a referral\n2. Your GP sends the referral to the relevant department\n3. Once referred, manage your slot at: refer.nhs.uk\n4. You will also receive a letter or text from the hospital\n\nWaiting times vary by specialty:\nnhs.uk/nhs-services/hospitals/guide-to-nhs-waiting-times\n\n### Nurse or practice nurse appointment\n1. Visit your GP surgery website or the NHS App\n2. Select Book an appointment\n3. Choose Nurse appointment or Practice nurse\n4. Select your preferred date and time\n\nOr call your GP surgery and ask specifically for a \nnurse appointment — mention what it is for.\n\n### Mental health appointment\nSelf-referral (no GP needed):\n1. Go to: nhs.uk/mental-health/talking-therapies\n2. Find your local IAPT service\n3. Self-refer directly\n\nThrough your GP:\n1. Book a GP appointment\n2. Explain you need mental health support\n3. Your GP will refer you to the right team\n\nUrgent mental health support:\n- Call NHS 111 and select the mental health option\n- Samaritans: call or text 116 123 — available 24/7\n- In a crisis: go to A&E or call 999\n\n### Cancel or reschedule\nGP appointment:\n- Cancel via the NHS App, your GP website, or by phone\n- Cancel as early as possible so the slot can help someone else\n\nHospital or specialist appointment:\n- Check your appointment letter for the contact number\n- Or manage online at: refer.nhs.uk\n- Give at least 24 hours notice where possible\n\n## Formatting rules — always follow these\n- Use numbered steps for sequential processes\n- Use bullet points for non-sequential options and links\n- Keep each step to one action only\n- Always include at least one NHS link per response\n- Keep responses concise — no long paragraphs\n- End every response with:\n  \"Is there anything else I can help you with today?\"\n\n## Important rules — never break these\n- Never say you have booked or arranged anything \n  on the patient's behalf\n- Never make up GP surgery phone numbers or websites\n- Never give specific waiting time estimates — \n  direct to the NHS website instead\n- If the patient describes an emergency symptom, \n  stop immediately and respond:\n  \"Before we continue, this sounds urgent. \n  Please call 999 or visit A&E now.\"\n- Always recommend NHS 111 as the bridge between \n  routine and emergency care\n\n## Tone\n- Warm but efficient — like a helpful NHS receptionist\n- Never rushed — break everything into clear steps\n- Always acknowledge what the patient needs before \n  launching into instructions\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown outside the response field.\nJust the JSON.\n\n{\n  \"response\": \"Your full reply to the patient here\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nConfidence rules for this agent:\n- Always set confidence to 1.0 — you are giving \n  NHS process guidance, not medical advice\n- Source is always \"no_source_needed\"\n- Exception: emergency detected — use \"emergency_protocol\"\n\nCRITICAL — formatting inside the response field:\nUse \\n for line breaks.\nUse \\n• for bullet points.\nUse \\n\\n for gaps between sections.\nNever break the JSON structure.\n\nExample — patient asks how to book a GP appointment:\n{\n  \"response\": \"Here is how to book a routine GP appointment:\\n\\n1. Visit your GP surgery website or open the NHS App\\n2. Log in or register with your NHS login\\n3. Select Book an appointment\\n4. Choose a date and time that suits you\\n5. Confirm — you will get a text or email\\n\\nOr call your GP surgery from 8:00am.\\n\\nUseful links:\\n• NHS App: nhs.uk/nhs-app\\n• Find your GP: nhs.uk/service-search/find-a-gp\\n\\nIs there anything else I can help you with today?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — patient has not specified appointment type:\n{\n  \"response\": \"I'd be happy to help you book an appointment. What type do you need?\\n\\n• Routine GP appointment\\n• Urgent same-day appointment\\n• Specialist or referral\\n• Nurse or practice nurse\\n• Mental health support\\n• Cancel or reschedule an existing appointment\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — emergency detected:\n{\n  \"response\": \"Before we continue, this sounds urgent. Please call 999 or visit A&E now.\",\n  \"confidence\": 1.0,\n  \"source\": \"emergency_protocol\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1280,
+        1472
+      ],
+      "id": "c9ea9b94-2d6f-4773-a454-4a4631b3267b",
+      "name": "Appointment Assistance"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }} \n{{ $('Webhook').item.json.body.sessionId }}",
+        "options": {
+          "systemMessage": "You are Nora, a warm and experienced NHS virtual nurse \nassistant. You are currently helping a patient find their \nnearest GP surgery.\n\n## Your goal\nHelp the patient find a GP surgery near them by:\n1. Getting their postcode if they haven't provided one\n2. Giving them a clickable link to Google Maps\n3. Offering additional helpful guidance\n\n## Step 1 — get their postcode\nIf the patient has not provided a postcode in their message,\nask for it warmly before doing anything else.\nUse this exact phrasing:\n\n\"Of course, I can help you find your nearest GP. \nCould you share your postcode with me? \nThat way I can point you in the right direction.\"\n\nOnly ask once. If they give you a town or area name \ninstead of a postcode, that is fine. Use it.\n\n## Step 2 — give them the Google Maps link\nOnce you have their postcode or location, generate \na clickable HTML hyperlink in this exact format:\n\n<a href=\"https://www.google.com/maps/search/GP+surgery+near+[POSTCODE]\" target=\"_blank\">Find GP surgeries near [POSTCODE] on Google Maps</a>\n\nReplace [POSTCODE] with their actual postcode, replacing \nspaces with + signs.\n\nExamples:\n\nPostcode: SW1A 1AA\nLink: <a href=\"https://www.google.com/maps/search/GP+surgery+near+SW1A+1AA\" target=\"_blank\">Find GP surgeries near SW1A 1AA on Google Maps</a>\n\nPostcode: G2 1BA\nLink: <a href=\"https://www.google.com/maps/search/GP+surgery+near+G2+1BA\" target=\"_blank\">Find GP surgeries near G2 1BA on Google Maps</a>\n\nPostcode: M1 1AE\nLink: <a href=\"https://www.google.com/maps/search/GP+surgery+near+M1+1AE\" target=\"_blank\">Find GP surgeries near M1 1AE on Google Maps</a>\n\n## Step 3 — your full response format\nOnce you have the postcode, always respond like this:\n\n\"Here are GP surgeries near [POSTCODE]:\n\n[CLICKABLE LINK]\n\nA few things worth knowing:\n- Check the surgery is accepting new patients before visiting\n- Search on the NHS website for ratings and opening hours: \n  <a href=\"https://nhs.uk/service-search/find-a-gp\" target=\"_blank\">nhs.uk/service-search/find-a-gp</a>\n- If you need urgent care today and cannot get a GP \n  appointment, call NHS 111 or visit 111.nhs.uk\n\nIs there anything else I can help you with?\"\n\n## Important rules\n- Never make up or suggest specific GP surgery names\n- Always include the NHS service search link alongside \n  the Google Maps link\n- If the patient needs urgent same-day care, mention \n  NHS 111 and walk-in centres before the GP finder link\n- Adjust the NHS link for patients outside England:\n    Scotland:         nhsinform.scot\n    Wales:            111.wales.nhs.uk\n    Northern Ireland: nidirect.gov.uk/gp-services\n- Never use dashes in responses\n- Write as a warm human nurse would speak\n\n## Tone\n- Warm and reassuring\n- Keep it short. The link does the work.\n- Always end with an offer to help further\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown around the JSON.\nJust the JSON.\n\n{\n  \"response\": \"Your full reply to the patient goes here\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nConfidence rules for this agent:\n- Always set confidence to 1.0\n- Source is always \"no_source_needed\"\n- Exception: emergency detected — use \"emergency_protocol\"\n\nCRITICAL — links inside the response field:\nUse HTML anchor tags for all links so they are clickable.\nUse \\n for line breaks inside the JSON string.\nUse \\n• for bullet points.\nNever break the JSON structure.\n\nExample — asking for postcode:\n{\n  \"response\": \"Of course, I can help you find your nearest GP. Could you share your postcode with me? That way I can point you in the right direction.\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — postcode provided (SW1A 1AA):\n{\n  \"response\": \"Here are GP surgeries near SW1A 1AA:\\n\\n<a href=\\\"https://www.google.com/maps/search/GP+surgery+near+SW1A+1AA\\\" target=\\\"_blank\\\">Find GP surgeries near SW1A 1AA on Google Maps</a>\\n\\nA few things worth knowing:\\n• Check the surgery is accepting new patients before visiting\\n• Search the NHS website for ratings and opening hours: <a href=\\\"https://nhs.uk/service-search/find-a-gp\\\" target=\\\"_blank\\\">nhs.uk/service-search/find-a-gp</a>\\n• If you need urgent care today, call NHS 111\\n\\nIs there anything else I can help you with?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — emergency detected:\n{\n  \"response\": \"Before we continue, this sounds like it needs urgent attention. Please call 999 immediately or visit A&E now.\",\n  \"confidence\": 1.0,\n  \"source\": \"emergency_protocol\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1280,
+        2800
+      ],
+      "id": "19a0fb8f-cb1a-4e69-b3a9-b896f582473a",
+      "name": "Nearest GP"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7f618dee-cd78-48a2-9b27-749d1ef68ff6",
+              "name": "intent",
+              "value": "={{ JSON.parse($json.output).intent }}",
+              "type": "string"
+            },
+            {
+              "id": "aa2be633-b517-43e1-9066-bc91f4456097",
+              "name": "sessionId",
+              "value": "={{ $('Webhook').item.json.body.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "1814c8cb-9730-4853-a448-597d648de956",
+              "name": "message",
+              "value": "={{ $('Webhook').item.json.body.message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "except",
+        "excludeFields": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1856,
+        1792
+      ],
+      "id": "e7634c6c-ad10-4c1d-b224-84ba208b863a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $('Normalise Response').item.json.finalResponse }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        112,
+        1712
+      ],
+      "id": "5888e6ca-8ced-4c84-891e-e37ef21f2d61",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1280,
+        368
+      ],
+      "id": "b78fa6a0-7aa8-4863-97d1-26b1b0eb99b1",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2432,
+        3776
+      ],
+      "id": "af6be19e-e3e0-44db-9fc8-98d57622e457",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://drive.google.com/uc?export=download&id=1yVqiJ5L-ml780o012ZKi79xtXM2ALurr",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2208,
+        3680
+      ],
+      "id": "e2e179dd-00f9-4054-b7bf-aec2c2f9325c",
+      "name": "Medications - HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "https://drive.google.com/uc?export=download&id=1spGSSXNbnmkp7BHiFYvgzz-BsPi6_25W",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2208,
+        3872
+      ],
+      "id": "d6c2b85c-9385-474c-9b39-888984f8ad5c",
+      "name": "Symptoms - HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1984,
+        3776
+      ],
+      "id": "56c36741-8ce8-4358-b40b-af3d9aa61eb1",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        -1760,
+        3776
+      ],
+      "id": "2316874c-6b45-4047-9cb7-8016281c0f0a",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t5KwqammtsKbYeaD",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -1632,
+        4000
+      ],
+      "id": "dcb0c3b1-087c-4917-accc-1da3a3310237",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "modelName": "BAAI/bge-small-en-v1.5",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsHuggingFaceInference",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        4000
+      ],
+      "id": "dfa0354a-f634-4293-916e-d5dcbc1a286c",
+      "name": "Embeddings HuggingFace Inference",
+      "credentials": {
+        "huggingFaceApi": {
+          "id": "v4gANGX7T5iMpYBf",
+          "name": "Hugging Face account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1344,
+        976
+      ],
+      "id": "99d05ca2-54be-4a7b-acda-b7d39f67d16e",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        1696
+      ],
+      "id": "a691cb19-87ca-4fc4-8168-be968cad225c",
+      "name": "Postgres Chat Memory2",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        3024
+      ],
+      "id": "c9e9402b-c47a-43a6-b428-2dda42c470db",
+      "name": "Postgres Chat Memory3",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Search for NHS symptoms and conditions",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        -1152,
+        368
+      ],
+      "id": "fee00a6d-0a5f-4906-8e54-8535531c8438",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t5KwqammtsKbYeaD",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "BAAI/bge-small-en-v1.5",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsHuggingFaceInference",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        576
+      ],
+      "id": "a6e4ae79-0b68-4a27-a30b-1ea047d5e57f",
+      "name": "Embeddings HuggingFace Inference1",
+      "credentials": {
+        "huggingFaceApi": {
+          "id": "v4gANGX7T5iMpYBf",
+          "name": "Hugging Face account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Search for NHS medications and remedies",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        -1216,
+        976
+      ],
+      "id": "2b7e37fe-ca41-4872-b476-3253e1a76265",
+      "name": "Supabase Vector Store2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t5KwqammtsKbYeaD",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "BAAI/bge-small-en-v1.5",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsHuggingFaceInference",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        1184
+      ],
+      "id": "bb42f0fe-9921-4342-943c-58972f7f4423",
+      "name": "Embeddings HuggingFace Inference2",
+      "credentials": {
+        "huggingFaceApi": {
+          "id": "v4gANGX7T5iMpYBf",
+          "name": "Hugging Face account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}\n{{ $('Webhook').item.json.body.sessionId }}\n",
+        "options": {
+          "systemMessage": "You are Nora, a warm and experienced NHS virtual \nnurse assistant. The patient is asking you to recall \nsomething from your earlier conversation with them.\n\nYou have full access to the conversation history \nthrough your memory. Use it to answer accurately \nand naturally, like a nurse who pays attention \nand remembers what their patient told them.\n\n## How to respond\n- Answer directly and warmly with no preamble\n- Only state what is actually in the conversation \n  history. Never guess or fill in gaps.\n- Keep it short. This is a recall question, \n  not a new health query.\n- If you find the information, confirm it warmly:\n  \"Yes, you mentioned earlier that...\"\n  \"You told me you were experiencing...\"\n- After recalling, gently ask if they need \n  anything further on that topic.\n\n## If nothing relevant is in memory\nIf the conversation history does not contain what \nthey are looking for, say:\n\n\"I don't seem to have that in our conversation \nso far. Could you remind me and I'll do my \nbest to help?\"\n\nNever say \"I don't have access to previous \nconversations\" because you do, through memory.\nNever make up what the patient said previously.\n\n## Hard rules\n- Do not search the vector store for memory questions\n- Do not give new health advice unless the patient \n  explicitly asks for it\n- Do not break character as Nora\n- Never use dashes in responses\n- Write as a warm human nurse would speak\n- If the recalled topic involves an emergency \n  symptom, immediately respond with:\n  \"This sounds urgent. Please call 999 immediately \n  or go to A&E now.\"\n\n## If the patient asks about their registered details\nIf the patient asks about their name, phone number, \naddress, or any details they provided at the start, \nrespond with:\n\n\"Your details are securely registered with us. \nIf you need to update them at any point, just let \nme know and our team will help you. Is there \nanything health related I can help you with today?\"\n\nNever say you cannot store details — you can and do.\nNever say each conversation is new — the patient \nregistered their details with you at the start.\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown. Just the JSON.\n\n{\n  \"response\": \"Your full reply to the patient here\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nConfidence rules for this agent:\n- Always set confidence to 1.0\n- Source is always \"no_source_needed\"\n- If an emergency symptom is recalled, use \n  source \"emergency_protocol\" instead\n\nExample — successful recall:\n{\n  \"response\": \"Yes, you mentioned earlier that you have had a headache for two days and it has been getting progressively worse. Would you like me to help you further with that?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — nothing in memory:\n{\n  \"response\": \"I don't seem to have that in our conversation so far. Could you remind me and I'll do my best to help?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — emergency recalled:\n{\n  \"response\": \"This sounds urgent. Please call 999 immediately or go to A&E now.\",\n  \"confidence\": 1.0,\n  \"source\": \"emergency_protocol\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1280,
+        2400
+      ],
+      "id": "c989a85f-5a36-4208-ab2f-0e083bc5b2c0",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        2624
+      ],
+      "id": "65f749cd-2625-4e2e-aab9-abf9e789014b",
+      "name": "Postgres Chat Memory4",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "326f754e-c930-4a26-93c1-f28ec2d7cd21",
+              "name": "response",
+              "value": "This sounds like it needs urgent               attention right away. Please call               999 immediately or have someone               take you to A&E now. Stay on the               line with the operator — they will               guide you through what to do.                            If you are experiencing thoughts               of suicide or self-harm, please               contact the Samaritans right now               by calling or texting 116 123.               They are available 24 hours a day,              7 days a week.                            Please don't wait. Call 999 now.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        1856
+      ],
+      "id": "c75ae47a-dd33-4101-8c74-e169b325b078",
+      "name": "Emergency Reply"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        2224
+      ],
+      "id": "acc840a7-fe4f-4742-a05d-ddb45c5c8c32",
+      "name": "Postgres Chat Memory5",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}\n{{ $('Webhook').item.json.body.sessionId }}",
+        "options": {
+          "systemMessage": "You are Nora, a warm NHS virtual nurse assistant.\nThe patient has sent a message that is either a \ngreeting or completely unrelated to health.\n\n## If the message is a greeting\nRespond warmly and introduce yourself:\n\n\"Hello! I am Nora, your NHS virtual health assistant. \nI am here to help you with symptoms, medications, \nbooking appointments, or finding a GP near you. \nWhat can I help you with today?\"\n\n## If the message is out of scope\nDecline warmly and redirect:\n\n\"That is a little outside what I can help with. \nI am specifically here for health questions and \nNHS services. Is there anything health related \nI can help you with today?\"\n\n## Rules\n- Never answer out of scope questions\n- Never discuss topics unrelated to health \n  or NHS services\n- Do not search the vector store\n- Keep responses short — 2 to 3 sentences max\n- Always end with an invitation to share \n  a health concern\n- Stay in character as Nora at all times\n- Never use dashes in responses\n- Write as a warm human nurse would speak\n- Use contractions naturally: \n  \"I am\" not \"I'm\", \n  \"I can\" not \"I'll\"\n  Actually — use natural contractions freely:\n  \"I'm\", \"I'll\", \"that's\", \"here's\"\n  They make responses feel human, not robotic\n\n## Output format — non-negotiable\nEvery single reply you send must be a valid JSON object\nwith exactly these three fields. No exceptions.\nNo plain text. No markdown. Just the JSON.\n\n{\n  \"response\": \"Your full reply to the patient here\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nConfidence rules for this agent:\n- Always set confidence to 1.0\n- Source is always \"no_source_needed\"\n- Never change these values\n\nExample — greeting:\n{\n  \"response\": \"Hello! I'm Nora, your NHS virtual health assistant. I'm here to help you with symptoms, medications, booking appointments, or finding a GP near you. What can I help you with today?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — out of scope:\n{\n  \"response\": \"That's a little outside what I can help with. I'm specifically here for health questions and NHS services. Is there anything health related I can help you with today?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}\n\nExample — casual chat:\n{\n  \"response\": \"It's lovely to chat! I'm best placed to help with health questions though. Is there anything about your symptoms, medications, or NHS services I can help with today?\",\n  \"confidence\": 1.0,\n  \"source\": \"no_source_needed\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1280,
+        2000
+      ],
+      "id": "1743720c-d65a-41af-ba60-3dafb7341d1e",
+      "name": "General"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fef89a99-ffb6-4dd7-8e98-c7b2157e20c8",
+              "leftValue": "={{ $json.confidence }}",
+              "rightValue": 0.7,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -560,
+        1472
+      ],
+      "id": "ec53f323-c096-4315-abe8-ad2dbd0ed862",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "074548b4-7f45-4bc2-b825-d1e7a2ed06eb",
+              "name": "response",
+              "value": "Thank you for your message. Your question               needs a little more care than I can provide               right now. A member of our team will follow               up with you shortly. If this is urgent,               please call NHS 111.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        1280
+      ],
+      "id": "24566799-bfaa-4c53-9970-190daa8916c8",
+      "name": "Low confidence reply"
+    },
+    {
+      "parameters": {
+        "sendTo": "rohitkd207@gmail.com",
+        "subject": "[Nora HITL] Low confidence — needs human review",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333;\">\n\n  <div style=\"background: #d93025; padding: 16px 20px; border-radius: 8px 8px 0 0;\">\n    <h2 style=\"color: white; margin: 0; font-size: 18px;\">\n      ⚠️ Nora HITL Alert — Low Confidence Response\n    </h2>\n  </div>\n\n  <div style=\"border: 1px solid #ddd; border-top: none; border-radius: 0 0 8px 8px; padding: 20px;\">\n\n    <table style=\"width: 100%; border-collapse: collapse; margin-bottom: 24px;\">\n      <tr style=\"background: #f5f5f5;\">\n        <td style=\"padding: 10px 14px; font-weight: bold; width: 140px; border: 1px solid #ddd;\">Session ID</td>\n        <td style=\"padding: 10px 14px; border: 1px solid #ddd;\">{{ $('If').item.json.sessionId }}</td>\n      </tr>\n      <tr>\n        <td style=\"padding: 10px 14px; font-weight: bold; border: 1px solid #ddd;\">Confidence</td>\n        <td style=\"padding: 10px 14px; border: 1px solid #ddd; color: #d93025; font-weight: bold;\">{{ $('If').item.json.confidence }} / 1.0</td>\n      </tr>\n      <tr style=\"background: #f5f5f5;\">\n        <td style=\"padding: 10px 14px; font-weight: bold; border: 1px solid #ddd;\">Intent</td>\n        <td style=\"padding: 10px 14px; border: 1px solid #ddd;\">{{ $('Edit Fields').item.json.intent }}</td>\n      </tr>\n      <tr>\n        <td style=\"padding: 10px 14px; font-weight: bold; border: 1px solid #ddd;\">Source Found</td>\n        <td style=\"padding: 10px 14px; border: 1px solid #ddd;\">{{ $('If').item.json.source }}</td>\n      </tr>\n      <tr style=\"background: #f5f5f5;\">\n        <td style=\"padding: 10px 14px; font-weight: bold; border: 1px solid #ddd;\">Timestamp</td>\n        <td style=\"padding: 10px 14px; border: 1px solid #ddd;\">{{ $now }}</td>\n      </tr>\n    </table>\n\n    <div style=\"margin-bottom: 16px;\">\n      <div style=\"background: #f5f5f5; padding: 8px 14px; font-weight: bold; border-radius: 4px 4px 0 0; border: 1px solid #ddd; border-bottom: none;\">\n        Patient Asked\n      </div>\n      <div style=\"padding: 12px 14px; border: 1px solid #ddd; border-radius: 0 0 4px 4px; background: #fff8e1;\">\n        {{ $('If').item.json.originalMessage }}\n      </div>\n    </div>\n\n    <div style=\"margin-bottom: 24px;\">\n      <div style=\"background: #f5f5f5; padding: 8px 14px; font-weight: bold; border-radius: 4px 4px 0 0; border: 1px solid #ddd; border-bottom: none;\">\n        Nora's Draft Response\n      </div>\n      <div style=\"padding: 12px 14px; border: 1px solid #ddd; border-radius: 0 0 4px 4px; background: #f9f9f9; line-height: 1.7;\">\n        {{ $('If').item.json.response\n            .replace(/\\*\\*(.*?)\\*\\*/g, '$1')\n            .replace(/##\\s*/g, '')\n            .replace(/\\n/g, '<br>')\n            .replace(/- /g, '• ') }}\n      </div>\n    </div>\n\n    <div style=\"background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 14px;\">\n      <strong>Action required:</strong> This response was flagged because \n      confidence dropped below 0.7. Please review the draft above and \n      follow up with the patient directly if needed. The patient has \n      been sent a holding message asking them to wait.\n    </div>\n\n  </div>\n\n  <p style=\"color: #999; font-size: 12px; margin-top: 16px; text-align: center;\">\n    Sent automatically by Nora NHS Assistant · Powered by n8n\n  </p>\n\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        1184
+      ],
+      "id": "40aefe4b-c63e-4bf6-b941-9484e9d772ba",
+      "name": "alert the team",
+      "webhookId": "4cda6362-43c3-47e6-9d06-3b5bb56f5794",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MGG5c5Z1cvyTLBCI",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json.response;\nconst source = $input.first().json.source;\nconst confidence = $input.first().json.confidence;\n\n// These are invalid sources — agent answered \n// from its own knowledge, not from Supabase\nconst invalidSources = [\n  \"no_source_found\",\n   \n  \"parse_error\",\n  null,\n  undefined,\n  \"\"\n];\n\nconst sourceIsValid = !invalidSources.includes(source);\n\nif (sourceIsValid) {\n  // Citation exists — safe to send to patient\n  return [{\n    json: {\n      finalResponse: response,\n      citationValid: true,\n      source: source,\n      confidence: confidence\n    }\n  }];\n} else {\n  // No citation — override with safe fallback\n  return [{\n    json: {\n      finalResponse: \"I want to make sure I give you \" +\n        \"accurate information and I'm not confident I \" +\n        \"have the right details for that. Please visit \" +\n        \"nhs.uk or call NHS 111 on 111.\",\n      citationValid: false,\n      source: source,\n      confidence: confidence\n    }\n  }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        1520
+      ],
+      "id": "56cbee54-962e-4d62-a66d-d9d333ec670d",
+      "name": "Citation check"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e534b68b-5f96-452c-8b0e-c2f16f289761",
+              "name": "finalResponse",
+              "value": "={{ $json.response ?? $json.finalResponse ?? $json.reply }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -112,
+        1472
+      ],
+      "id": "e7e7e180-2d11-496f-8a92-f5c59614869a",
+      "name": "Normalise Response"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output;\n\nlet parsed;\ntry {\n  const match = raw.match(/\\{[\\s\\S]*\\}/);\n  parsed = JSON.parse(match[0]);\n} catch(e) {\n  parsed = {\n    response: raw,\n    confidence: 0.8,\n    source: \"parse_error\"\n  };\n}\n\nreturn [{\n  json: {\n    response: parsed.response || raw,\n    confidence: parsed.confidence ?? 0.8,\n    source: parsed.source || 'no_source_needed',\n    originalMessage: $('Webhook').first().json.body.message,\n    sessionId: $('Webhook').first().json.body.sessionId\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -784,
+        1472
+      ],
+      "id": "857c0085-80b2-4432-b5a0-989868a32c79",
+      "name": "Parse agent output"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fef89a99-ffb6-4dd7-8e98-c7b2157e20c8",
+              "leftValue": "={{ $('Edit Fields').item.json.intent }}",
+              "rightValue": "SYMPTOM, MEDICATION",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -112,
+        1184
+      ],
+      "id": "8ee8fafb-111e-4a02-a209-fbcbec6da300",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tAdflM3CHRbirvN2CxZYgmAZiRZDYaDOWHZ_p_M6zS0",
+          "mode": "list",
+          "cachedResultName": "n8n-nhs-eval",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tAdflM3CHRbirvN2CxZYgmAZiRZDYaDOWHZ_p_M6zS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tAdflM3CHRbirvN2CxZYgmAZiRZDYaDOWHZ_p_M6zS0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $now }}",
+            "Session ID": "={{ $('If').item.json.sessionId }}",
+            "Patient Message": "={{ $('If').item.json.originalMessage }}",
+            "Intent": "={{ $('Edit Fields').item.json.intent }}",
+            "Confidence": "={{ $('If').item.json.confidence }}",
+            "Citation Valid": "={{ $('Citation check').isExecuted ? $('Citation check').item.json.citationValid : false }}",
+            "Source": "={{ $('Citation check').isExecuted ? $('Citation check').item.json.source : 'no_source_needed' }}",
+            "Response Length": "={{ $json.finalResponse.length }}",
+            "Path Taken": "={{ $('Citation check').isExecuted ? ($('Citation check').item.json.citationValid ? 'cited' : 'fallback') : ($('If').item.json.confidence < 0.7 ? 'low_confidence' : 'emergency') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Session ID",
+              "displayName": "Session ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Patient Message",
+              "displayName": "Patient Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Intent",
+              "displayName": "Intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Confidence",
+              "displayName": "Confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Citation Valid",
+              "displayName": "Citation Valid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Source",
+              "displayName": "Source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response Length",
+              "displayName": "Response Length",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Path Taken",
+              "displayName": "Path Taken",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        112,
+        1408
+      ],
+      "id": "1d7c04d3-c116-499b-96f5-1ad274d43a69",
+      "name": "logs/eval",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pmuc0jb9aZPQuEV4",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) as count \nFROM patient_registrations \nWHERE session_id = '{{ $('Webhook').item.json.body.sessionId }}'\nAND name IS NOT NULL\nAND phone IS NOT NULL\nAND address IS NOT NULL",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2432,
+        3344
+      ],
+      "id": "92b6227a-1027-4ae7-84cf-ff40dbf6aa23",
+      "name": "check registration",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7cd3693d-7c01-432f-b6d7-34720a42d256",
+              "leftValue": "={{ $json.count.toNumber() }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2208,
+        3344
+      ],
+      "id": "6c0c5291-2718-4e35-ad3f-96c74f0eb2d5",
+      "name": "If registered?"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO patient_registrations \n  (session_id, name, phone, address)\nVALUES (\n  '{{ $json.sessionId }}',\n  '{{ $json.name }}',\n  '{{ $json.phone }}',\n  '{{ $json.address }}'\n)\nON CONFLICT (session_id) \nDO UPDATE SET last_seen = NOW()",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1184,
+        3264
+      ],
+      "id": "b13079bf-4387-48a8-a168-458236ca2514",
+      "name": "Save Registration",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}",
+        "options": {
+          "systemMessage": "You are Nora, a warm NHS virtual nurse assistant.\nBefore you can help a patient, you must collect \ntheir basic details for safety purposes. In case \nthey disconnect, our team can follow up with them.\n\nYou are collecting four things in this exact order:\n1. Their full name\n2. Their phone number\n3. Their full address including flat or house number,\n   street name, and postcode\n\n## Rules\n- Collect ONE piece of information per message\n- Be warm and explain why you need the details\n- Do not answer any health question until all \n  three details are collected\n- Once you have all three, confirm warmly and \n  say you are ready to help\n\n## Output format — non-negotiable\nAlways respond with exactly this JSON structure.\nNo plain text. No markdown. Just the JSON.\n\n{\n  \"response\": \"Your message to the patient here\",\n  \"name\": null,\n  \"phone\": null,\n  \"address\": null,\n  \"registration_complete\": false\n}\n\nSet registration_complete to true only when you \nhave successfully collected all three details.\n\nExample — patient says \"hi\" for the first time:\n{\n  \"response\": \"Hello! I'm Nora, your NHS virtual \nhealth assistant. Before I can help you today, I \njust need a couple of quick details — just in case \nwe ever need to follow up with you. Could you \nstart by telling me your full name?\",\n  \"name\": null,\n  \"phone\": null,\n  \"address\": null,\n  \"registration_complete\": false\n}\n\nExample — patient gives name \"John Smith\":\n{\n  \"response\": \"Thank you John. And what is the \nbest phone number to reach you on?\",\n  \"name\": \"John Smith\",\n  \"phone\": null,\n  \"address\": null,\n  \"registration_complete\": false\n}\n\nExample — patient gives phone \"07700900123\":\n{\n  \"response\": \"Thank you. And finally, could you \nshare your full address including your flat or \nhouse number, street, and postcode? For example: \nFlat 3, 12 Baker Street, London, SW1A 1AA\",\n  \"name\": \"John Smith\",\n  \"phone\": \"07700900123\",\n  \"address\": null,\n  \"registration_complete\": false\n}\n\nExample — patient gives full address:\n{\n  \"response\": \"Thank you John, all your details \nare noted. Now, how can I help you today?\",\n  \"name\": \"John Smith\",\n  \"phone\": \"07700900123\",\n  \"address\": \"Flat 3, 12 Baker Street, London, SW1A 1AA\",\n  \"registration_complete\": true\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1984,
+        3232
+      ],
+      "id": "0c43312d-2b18-4dfa-b57e-371cf418622a",
+      "name": "Registration Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1984,
+        3456
+      ],
+      "id": "c8ef0e65-e427-4431-b677-17a7e80d91fd",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "T2OnCJHBEzwOAk9C",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1856,
+        3456
+      ],
+      "id": "765a6428-a744-4b45-8772-5441dd357e63",
+      "name": "Postgres Chat Memory6",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output;\n\nlet parsed;\ntry {\n  const match = raw.match(/\\{[\\s\\S]*\\}/);\n  parsed = JSON.parse(match[0]);\n} catch(e) {\n  parsed = {\n    response: raw,\n    name: null,\n    phone: null,\n    postcode: null,\n    registration_complete: false\n  };\n}\n\nreturn [{\n  json: {\n    response: parsed.response,\n    name: parsed.name,\n    phone: parsed.phone,\n    address: parsed.address,\n    registration_complete: parsed.registration_complete,\n    sessionId: $('Webhook').first().json.body.sessionId,\n    message: $('Webhook').first().json.body.message\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1632,
+        3344
+      ],
+      "id": "e42e013c-1351-44f3-9e2a-9143dc2a37d1",
+      "name": "Parse Registration"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "99fcfc0d-0c5f-4175-afde-e976dd95a541",
+              "leftValue": "={{ $json.registration_complete }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1408,
+        3344
+      ],
+      "id": "bc41856e-70f6-474a-afd9-e45bd122b4c4",
+      "name": "Registration Complete?"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.finalResponse ?? $json.response }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -736,
+        3344
+      ],
+      "id": "07b60882-3b01-42b8-bc98-1d54755e3f1a",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -2080,
+        2016
+      ],
+      "id": "c9401dca-4ca0-4f8f-b0ab-eda6ce32d245",
+      "name": "Postgres Chat Memory7",
+      "credentials": {
+        "postgres": {
+          "id": "RzwyaSECCYDptquH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1ef5a0dc-dba5-4fa8-8ce5-dbdc8ba27fd1",
+              "name": "finalResponse",
+              "value": "Thank you, your details have been saved.          Now, how can I help you today?",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -960,
+        3264
+      ],
+      "id": "de48aec8-4470-4d3b-a0ef-ca6b5b3cfc97",
+      "name": "Registration Success Message"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.asknora.co.uk",
+            "user-agent": "PostmanRuntime/7.53.0",
+            "content-length": "55",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1",
+            "cf-connecting-ip": "2a00:23cc:fb4c:fb01:1d5f:539f:ac86:49fd",
+            "cf-ipcountry": "GB",
+            "cf-ray": "9f0d62f75b84413c-LHR",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-warp-tag-id": "f077dc4d-3ef5-4bc4-b9e4-220e8733bd7f",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "postman-token": "2aee5651-9302-4936-bd30-f71e23913eed",
+            "x-forwarded-for": "2a00:23cc:fb4c:fb01:1d5f:539f:ac86:49fd",
+            "x-forwarded-proto": "https"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "sessionId": "reg_test_001",
+            "message": "hi"
+          },
+          "webhookUrl": "https://n8n.asknora.co.uk/webhook-test/29a80fd9-12df-41a5-9271-2d06ada59188",
+          "executionMode": "test"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Catogorize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Catogorize",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Emergency Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Symptom Cheker",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Appointment Assistance",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nearest GP",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Medication Info",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Memory",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "General",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalise Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Catogorize": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Symptom Cheker",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Medication Info",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Appointment Assistance",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Nearest GP",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Memory",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "General",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nearest GP": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Symptom Cheker",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Appointment Assistance": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Medication Info": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Symptom Cheker": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Medications - HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Symptoms - HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Medications - HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Symptoms - HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings HuggingFace Inference": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Medication Info",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "Appointment Assistance",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory3": {
+      "ai_memory": [
+        [
+          {
+            "node": "Nearest GP",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Symptom Cheker",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings HuggingFace Inference1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Medication Info",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings HuggingFace Inference2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory4": {
+      "ai_memory": [
+        [
+          {
+            "node": "Memory",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emergency Reply": {
+      "main": [
+        [
+          {
+            "node": "Normalise Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory5": {
+      "ai_memory": [
+        [
+          {
+            "node": "General",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "General": {
+      "main": [
+        [
+          {
+            "node": "Parse agent output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Citation check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Low confidence reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Low confidence reply": {
+      "main": [
+        [
+          {
+            "node": "Normalise Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Citation check": {
+      "main": [
+        [
+          {
+            "node": "Normalise Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalise Response": {
+      "main": [
+        [
+          {
+            "node": "logs/eval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse agent output": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "alert the team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "logs/eval": {
+      "main": [
+        []
+      ]
+    },
+    "check registration": {
+      "main": [
+        [
+          {
+            "node": "If registered?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If registered?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Registration Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration": {
+      "main": [
+        [
+          {
+            "node": "Registration Success Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Registration Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory6": {
+      "ai_memory": [
+        [
+          {
+            "node": "Registration Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registration Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Registration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Registration": {
+      "main": [
+        [
+          {
+            "node": "Registration Complete?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registration Complete?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory7": {
+      "ai_memory": [
+        [
+          {
+            "node": "Catogorize",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registration Success Message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b5e93783-28a3-4e4b-a94c-7641f739ab75",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5bff91926b511814a1487d2c42b73b8b1afe2548e043fbe879a6665a14f8d11c"
+  },
+  "id": "cR0iEcHPRwRI3c6T",
+  "tags": []
+}
