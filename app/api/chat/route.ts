@@ -22,7 +22,12 @@ export async function POST(req: Request) {
     }
 
 const text = await response.text()
-return Response.json({ reply: text })
+if (!text || text.trim() === '') {
+  return Response.json({ reply: "I'm sorry, I didn't catch that. Could you try again?" })
+}
+return new Response(JSON.stringify({ reply: text }), {
+  headers: { 'Content-Type': 'application/json' }
+})
 
   } catch (error) {
     console.error('Chat API error:', error)

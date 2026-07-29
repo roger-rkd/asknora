@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
 import NoraAvatar from './NoraAvatar'
 
 interface Message {
@@ -14,6 +16,22 @@ const SUGGESTIONS = [
   'Find a GP near me',
   'How do I book an appointment?',
 ]
+
+const markdownComponents = {
+  a: ({ ...props }) => (
+    <a
+      {...props}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: '#005EB8', textDecoration: 'underline', fontWeight: 500 }}
+    />
+  ),
+  p: ({ ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+  ul: ({ ...props }) => <ul className="list-disc pl-4 mb-2 last:mb-0 space-y-0.5" {...props} />,
+  ol: ({ ...props }) => <ol className="list-decimal pl-4 mb-2 last:mb-0 space-y-0.5" {...props} />,
+  li: ({ ...props }) => <li className="leading-relaxed" {...props} />,
+  strong: ({ ...props }) => <strong className="font-semibold" {...props} />,
+}
 
 
 interface Props {
@@ -183,20 +201,9 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
                       : { background: '#fff', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }
                   }
                 >
-                  <span 
-  dangerouslySetInnerHTML={{ 
-    __html: msg.content
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\n/g, '<br>')
-      .replace(/&lt;a /g, '<a ')
-      .replace(/&lt;\/a&gt;/g, '</a>')
-      .replace(/href=&quot;/g, 'href="')
-      .replace(/&quot;&gt;/g, '">')
-      .replace(/target=&quot;_blank&quot;/g, 'target="_blank"')
-  }} 
-/>
+                  <ReactMarkdown remarkPlugins={[remarkBreaks]} components={markdownComponents}>
+                    {msg.content}
+                  </ReactMarkdown>
                 </div>
               </div>
             ))}
@@ -265,8 +272,7 @@ export default function ChatBubble({ isOpen, onOpenChange }: Props) {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask a health question…"
-                disabled={loading}
-                className="flex-1 text-sm text-gray-900 placeholder-gray-400 px-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 focus:bg-white disabled:opacity-50 transition-all"
+                className="flex-1 text-sm text-gray-900 placeholder-gray-400 px-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 focus:bg-white transition-all"
               />
               <button
                 onClick={() => sendMessage()}
